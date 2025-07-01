@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Regression Test Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Fira+Mono:400,500,700|Merriweather:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/regular.min.css">
+  <style>
+    :root {
+      --main-bg: #f3eaff;
+      --main-text: #2d2d2d;
+      --accent: #a259ec;
+      --card-bg: #fff;
+      --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      --border-radius: 28px;
+      --banner-bg: #a259ec;
+      --banner-text: #fff;
+      --cookie-bg: #ffe082;
+      --cookie-border: #ffb300;
+      --cookie-btn: #ffb300;
+      --cookie-btn-hover: #ff9800;
+      --cookie-btn-text: #fff;
+      --social-btn-radius: 8px;
+    }
+    html {
+      background: var(--main-bg);
+      color: var(--main-text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      letter-spacing: normal;
+      direction: ltr;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--main-bg);
+      color: var(--main-text);
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: inherit;
+      transition: background 0.3s, color 0.3s;
+    }
+    .background-lines {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .container {
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: left 0.3s, top 0.3s;
+      z-index: 1;
+      box-sizing: border-box;
+      padding-top: 64px;
+    }
+    .login-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      overflow: hidden;
+      width: 900px;
+      max-width: 98vw;
+      min-height: 540px;
+      border: none;
+      transition: box-shadow 0.3s, border 0.3s;
+      z-index: 999;
+      position: relative;
+    }
+    .login-left {
+      flex: 1.1;
+      padding: 48px 40px 40px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .login-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--main-text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    .login-title span {
+      display: inline-block;
+      width: 32px;
+      height: 16px;
+      background: #d1b3ff;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+    .login-subtitle {
+      color: #a1a1a1;
+      font-size: 1rem;
+      margin-bottom: 32px;
+    }
+    .login-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .input-group {
+      margin-bottom: 18px;
+      width: 100%;
+      position: relative;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--main-text);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .input-group input[type="text"],
+    .input-group input[type="email"],
+    .input-group input[type="password"] {
+      width: 100%;
+      padding: 12px 44px 12px 14px;
+      border: 1.5px solid #e0d7f3;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #faf7ff;
+      transition: border 0.2s;
+      box-sizing: border-box;
+    }
+    .input-group input:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+    .input-group .toggle-password {
+      position: absolute;
+      right: 14px;
+      top: 38px;
+      color: #b7a7d9;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .forgot-link {
+      color: var(--accent);
+      font-size: 0.98rem;
+      text-decoration: none;
+      margin-bottom: 18px;
+      margin-top: -10px;
+      display: inline-block;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover {
+      color: #7c3aed;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: background 0.2s;
+    }
+    .login-btn:hover {
+      background: #7c3aed;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #b7a7d9;
+      margin: 18px 0 18px 0;
+      font-size: 0.95rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #ece6fa;
+      margin: 0 10px;
+    }
+    .social-login {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      flex: 1 1 45%;
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 0;
+      border: 1.5px solid #ece6fa;
+      border-radius: var(--social-btn-radius);
+      background: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2d2d2d;
+      cursor: pointer;
+      transition: border 0.2s, box-shadow 0.2s;
+      margin-bottom: 8px;
+    }
+    .social-btn i { font-size: 1.2rem; }
+    .social-btn.google { color: #ea4335; }
+    .social-btn.facebook { color: #1877f3; }
+    .social-btn.apple { color: #000; }
+    .social-btn.linkedin { color: #0077b5; }
+    .social-btn:hover {
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 2px 8px 0 rgba(162, 89, 236, 0.08);
+    }
+    .signup-link {
+      text-align: center;
+      color: #b7a7d9;
+      font-size: 0.98rem;
+      margin-top: 8px;
+    }
+    .signup-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 4px;
+      transition: color 0.2s;
+    }
+    .signup-link a:hover {
+      color: #7c3aed;
+    }
+    .login-right {
+      flex: 1;
+      background: linear-gradient(120deg, #d1b3ff 0%, #a259ec 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-width: 320px;
+      transition: filter 0.3s;
+    }
+    .login-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      min-height: 100%;
+      transition: filter 0.3s;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .login-card {
+        flex-direction: column;
+        width: 98vw;
+        min-height: 0;
+      }
+      .login-right {
+        min-width: 0;
+        height: 220px;
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+      }
+      .login-right img {
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+      .login-left {
+        padding: 32px 18px 24px 18px;
+      }
+    }
+    @media (max-width: 600px), (max-height: 600px) {
+      .container {
+        min-height: unset;
+        height: auto;
+        display: block;
+        padding: 44px 0 12px 0;
+      }
+      .login-card {
+        width: 100vw !important;
+        min-width: 0 !important;
+        max-width: 100vw !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+      .login-left {
+        padding: 20px 8px 16px 8px;
+      }
+      .login-title {
+        font-size: 1.3rem;
+      }
+      .login-right {
+        display: none;
+      }
+      .social-login {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .social-btn {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+    /* --- Visual Regression Classes --- */
+    .theme-dark {
+      --main-bg: #181818;
+      --main-text: #fff;
+      --card-bg: #232323;
+      --accent: #ffd54f;
+      --banner-bg: #232323;
+      --banner-text: #ffd54f;
+      --cookie-bg: #232323;
+      --cookie-border: #ffd54f;
+      --cookie-btn: #ffd54f;
+      --cookie-btn-hover: #ffb300;
+      --cookie-btn-text: #232323;
+    }
+    .theme-light {
+      --main-bg: #f3eaff;
+      --main-text: #2d2d2d;
+      --card-bg: #fff;
+      --accent: #a259ec;
+      --banner-bg: #a259ec;
+      --banner-text: #fff;
+      --cookie-bg: #ffe082;
+      --cookie-border: #ffb300;
+      --cookie-btn: #ffb300;
+      --cookie-btn-hover: #ff9800;
+      --cookie-btn-text: #fff;
+    }
+    .font-serif, .font-serif * { font-family: 'Merriweather', serif !important; }
+    .font-sans, .font-sans * { font-family: 'Montserrat', sans-serif !important; }
+    .font-mono, .font-mono * { font-family: 'Fira Mono', 'Courier New', Courier, monospace !important; }
+    .font-large, .font-large * { font-size: 1.2rem !important; }
+    .font-small, .font-small * { font-size: 0.92rem !important; }
+    .offset-page { position: relative; left: 10px; top: 10px; }
+    .border-card .login-card { border: 3px solid var(--accent); }
+    .shadow-off .login-card, .shadow-off .login-btn, .shadow-off .cookie-banner { box-shadow: none !important; }
+    .anim-on .login-card, .anim-on .login-btn, .anim-on .social-btn { transition: all 0.5s cubic-bezier(.4,2,.6,1) !important; }
+    .rtl { direction: rtl; }
+    .blur-all img {
+      filter: blur(4px) !important;
+    }
+    .blur-all.grayscale img {
+      filter: blur(4px) grayscale(1) !important;
+    }
+    .img-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.25);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: inherit;
+    }
+    .invert-colors {
+      filter: invert(1) hue-rotate(180deg) !important;
+    }
+    .disable-animations *, .disable-animations *:before, .disable-animations *:after {
+      animation: none !important;
+      transition: none !important;
+    }
+    #grid-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: repeating-linear-gradient(0deg, #a259ec88 0 2px, transparent 2px 40px), repeating-linear-gradient(90deg, #a259ec88 0 2px, transparent 2px 40px);
+      pointer-events: none;
+      z-index: 99999;
+      display: none;
+      mix-blend-mode: multiply;
+    }
+    #ruler-x, #ruler-y {
+      position: fixed;
+      background: #fff;
+      z-index: 100000;
+      pointer-events: none;
+      font-size: 10px;
+      color: #a259ec;
+      opacity: 0.95;
+      user-select: none;
+    }
+    #ruler-x {
+      top: 0; left: 0; right: 0; height: 24px;
+      border-bottom: 1px solid #a259ec;
+      display: flex;
+      align-items: flex-end;
+      padding-left: 24px;
+      background: linear-gradient(to bottom, #fff 80%, #a259ec22 100%);
+    }
+    #ruler-y {
+      top: 0; left: 0; bottom: 0; width: 24px;
+      border-right: 1px solid #a259ec;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-top: 24px;
+      background: linear-gradient(to right, #fff 80%, #a259ec22 100%);
+    }
+    .ruler-mark {
+      position: absolute;
+      font-size: 10px;
+      color: #a259ec;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .footer {
+      width: 100vw;
+      text-align: center;
+      font-size: 1rem;
+      color: #888;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      padding: 10px 0 6px 0;
+      background: none;
+      letter-spacing: 0.01em;
+      z-index: 100;
+      background: transparent;
+    }
+    .footer a { color: #a259ec; text-decoration: underline; }
+    .hide-footer .footer { display: none !important; }
+    .high-contrast {
+      --main-bg: #fff;
+      --main-text: #000;
+      --card-bg: #fff;
+      --accent: #ff0000;
+      --banner-bg: #000;
+      --banner-text: #ff0000;
+      --cookie-bg: #fff;
+      --cookie-border: #ff0000;
+      --cookie-btn: #ff0000;
+      --cookie-btn-hover: #000;
+      --cookie-btn-text: #fff;
+    }
+    .hide-image .login-right { display: none !important; }
+    .hide-form .login-left { display: none !important; }
+    .alt-btn .login-btn, .alt-btn .social-btn {
+      border-radius: 24px !important;
+      background: #ffd54f !important;
+      color: #232323 !important;
+      border: 2px solid #ffb300 !important;
+      font-weight: 700 !important;
+    }
+    .alt-btn .login-btn:hover, .alt-btn .social-btn:hover {
+      background: #ffb300 !important;
+      color: #fff !important;
+    }
+    /* --- Cookie Banner --- */
+    .cookie-banner {
+      position: fixed;
+      left: 50%;
+      right: auto;
+      bottom: 32px;
+      background: var(--cookie-bg);
+      color: var(--main-text);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18), 0 0 0 4px var(--cookie-border);
+      padding: 28px 24px 28px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      z-index: 1000;
+      font-size: 1.08rem;
+      border-radius: 18px;
+      max-width: 600px;
+      min-width: 320px;
+      margin: 0 auto;
+      transform: translateX(-50%);
+      border: 3px solid var(--cookie-border);
+      font-family: inherit;
+      font-weight: 500;
+      transition: bottom 0.3s;
+    }
+    .cookie-banner button {
+      background: #fff3e0;
+      color: var(--cookie-btn-hover);
+      border: 2px solid var(--cookie-border);
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1.08rem;
+      cursor: pointer;
+      font-weight: 700;
+      margin-left: 18px;
+      margin-top: 8px;
+      box-shadow: 0 2px 8px 0 rgba(255, 179, 0, 0.08);
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
+    .cookie-banner button:hover {
+      background: var(--cookie-btn-hover);
+      color: var(--cookie-btn-text);
+      border: 2px solid var(--cookie-btn);
+    }
+    .cookie-banner .cookie-btn-accept {
+      background: var(--cookie-btn);
+      color: var(--cookie-btn-text);
+      border: 2px solid var(--cookie-btn-hover);
+      margin-left: 18px;
+    }
+    .cookie-banner .cookie-btn-accept:hover {
+      background: var(--cookie-btn-hover);
+      color: var(--cookie-btn-text);
+      border: 2px solid var(--cookie-btn);
+    }
+    .cookie-banner .cookie-btn-decline {
+      background: #fff3e0;
+      color: var(--cookie-btn-hover);
+      border: 2px solid var(--cookie-btn);
+      margin-left: 10px;
+    }
+    .cookie-banner .cookie-btn-decline:hover {
+      background: var(--cookie-btn-hover);
+      color: var(--cookie-btn-text);
+      border: 2px solid var(--cookie-btn);
+    }
+    .cookie-banner .cookie-btn-prefs {
+      background: #fff;
+      color: var(--cookie-btn-hover);
+      border: 2px solid var(--cookie-btn);
+      margin-left: 0;
+    }
+    .cookie-banner .cookie-btn-prefs:hover {
+      background: var(--cookie-btn-hover);
+      color: var(--cookie-btn-text);
+      border: 2px solid var(--cookie-btn);
+    }
+    /* --- Scrolling Banner --- */
+    .scrolling-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      min-height: 64px;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center center/cover no-repeat, var(--banner-bg);
+      color: var(--banner-text);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 12px 0 rgba(162, 89, 236, 0.15);
+      letter-spacing: 0.04em;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 0;
+      text-align: center;
+      overflow: hidden;
+    }
+    .scrolling-banner-content {
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 12px;
+      max-width: 100vw;
+      font-size: 1.05em;
+      font-weight: 600;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+      margin: 8px 0;
+      white-space: nowrap;
+      animation: banner-scroll 30s linear infinite;
+      display: inline-block;
+    }
+    @keyframes banner-scroll {
+      0% { transform: translateX(100vw); }
+      100% { transform: translateX(-100vw); }
+    }
+    /* --- Utility --- */
+    .hide { display: none !important; }
+    .hide-social-btn { visibility: hidden !important; }
+    #help-modal .param-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0 12px;
+      margin-bottom: 10px;
+    }
+    #help-modal .param-section {
+      grid-column: span 5;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #a259ec;
+      margin: 8px 0 2px 0;
+      border-bottom: 1px solid #ece6fa;
+      padding-bottom: 2px;
+    }
+    #help-modal label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0;
+    }
+    #help-modal hr {
+      display: none;
+    }
+    @media (max-width: 1200px) {
+      #help-modal .param-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 900px) {
+      #help-modal .param-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      #help-modal .param-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .alt-btn .login-btn, .alt-btn .social-btn {
+      border-radius: 10px !important;
+      background: #f7f7fa !important;
+      color: #2d2d2d !important;
+      border: 1.5px solid #a259ec !important;
+      font-weight: 600 !important;
+      box-shadow: 0 1px 4px 0 rgba(162,89,236,0.06) !important;
+    }
+    .alt-btn .login-btn:hover, .alt-btn .social-btn:hover {
+      background: #ece6fa !important;
+      color: #a259ec !important;
+      border: 1.5px solid #7c3aed !important;
+    }
+    .font-bold, .font-bold * { font-weight: 700 !important; }
+    .font-normal, .font-normal * { font-weight: 400 !important; }
+    #slider-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+      background: rgba(0,0,0,0.18);
+      padding: 6px 18px;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    }
+    .slider-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: transparent;
+      transition: background 0.2s, border 0.2s;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .slider-dot.active {
+      background: #fff;
+      border: 2px solid #a259ec;
+      box-shadow: 0 0 0 2px #7c3aed33;
+    }
+    @media (max-width: 900px) {
+      #slider-dots { bottom: 8px; padding: 4px 8px; }
+      .slider-dot { width: 10px; height: 10px; }
+    }
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 340px;
+      height: 100vh;
+      background: #fff;
+      box-shadow: -4px 0 24px 0 rgba(34,60,80,0.18);
+      z-index: 5000;
+      transition: right 0.35s cubic-bezier(.4,2,.6,1);
+      display: flex;
+      flex-direction: column;
+      padding: 32px 24px 24px 24px;
+      border-radius: 16px 0 0 16px;
+    }
+    .side-panel.open {
+      right: 0;
+    }
+    .side-panel-close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #a259ec;
+      cursor: pointer;
+    }
+    .side-panel-content {
+      margin-top: 32px;
+      color: #333;
+      font-size: 1.1rem;
+    }
+    #open-side-panel-btn {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background: #a259ec;
+      color: #fff;
+      border: none;
+      border-radius: 8px 0 0 8px;
+      padding: 12px 18px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      z-index: 4001;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(162, 89, 236, 0.10);
+    }
+    #help-modal .current-value {
+      color: #a259ec;
+      font-size: 0.98em;
+      font-weight: 600;
+      margin-left: 6px;
+      opacity: 0.85;
+    }
+    .random-pixel {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      z-index: 100;
+    }
+    .social-btn {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      justify-content: center !important;
+      font-weight: 500;
+    }
+    .social-btn i {
+      min-width: 1.2em;
+      text-align: center;
+      font-size: 1.2em;
+      display: inline-block;
+    }
+    .anim-on .login-card, .anim-on .login-btn, .anim-on .social-btn, .anim-on .input-group, .anim-on .signup-link, .anim-on .login-title, .anim-on .login-subtitle {
+      animation: floatAnim 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes floatAnim {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+    .font-bold, .font-bold * {
+      font-weight: 700 !important;
+    }
+    .grayscale img {
+      filter: grayscale(1) !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="scrolling-banner" style="display:none;"></div>
+  <svg class="background-lines" width="100%" height="100%" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,200 Q400,400 900,100 Q1200,0 1440,200" stroke="#d1b3ff" stroke-width="3" fill="none"/>
+    <path d="M0,700 Q600,900 1440,600" stroke="#d1b3ff" stroke-width="2" fill="none"/>
+  </svg>
+  <div class="container">
+    <div class="login-card">
+      <div class="login-left">
+        <div class="login-title"><span></span>Log In
+          <button id="open-side-panel-btn" type="button">System Info</button>
+          <span id="help-icon" style="margin-left:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#ece6fa;border-radius:50%;color:#a259ec;font-size:1.2rem;box-shadow:0 1px 4px 0 rgba(162,89,236,0.08);" title="Show help">&#x3f;</span>
+        </div>
+        <div class="login-subtitle">Welcome back! Please enter your details</div>
+        <form class="login-form" id="login-form" autocomplete="off">
+          <div id="login-fields">
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required>
+              <span class="toggle-password" onclick="togglePassword()"><i class="fa-regular fa-eye" id="eyeIcon"></i></span>
+            </div>
+            <a href="#" class="forgot-link" id="forgot-link">forgot password ?</a>
+            <button type="submit" class="login-btn">Log in</button>
+            <div class="divider">Or Continue With</div>
+            <div class="social-login">
+              <button type="button" class="social-btn google"><i class="fab fa-google"></i> Google</button>
+              <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
+              <button type="button" class="social-btn apple"><i class="fab fa-apple"></i> Apple</button>
+              <button type="button" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</button>
+            </div>
+          </div>
+          <div id="forgot-fields" style="display:none;">
+            <div class="input-group">
+              <label for="forgot-email">Email</label>
+              <input type="email" id="forgot-email" name="forgot-email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit" class="login-btn">Send Reset Link</button>
+            <a href="#" class="forgot-link" id="back-to-login">Back to Login</a>
+          </div>
+        </form>
+        <div class="signup-link">Don't have account?<a href="#">Sign up</a></div>
+        <div id="countdown-timer" style="display:none;text-align:center;margin-top:10px;font-size:1.1rem;color:#a259ec;font-weight:600;"></div>
+      </div>
+      <div class="login-right" id="login-right">
+        <img id="slider-img" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Login Visual" />
+        <div id="slider-dots"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Popup Modal -->
+  <div id="popup-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:3000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:32px 24px;border-radius:16px;box-shadow:0 4px 32px 0 rgba(0,0,0,0.18);max-width:90vw;max-height:80vh;position:relative;display:flex;flex-direction:column;align-items:center;">
+      <button id="popup-close" style="position:absolute;top:12px;right:12px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#a259ec;">&times;</button>
+      <div style="font-size:1.2rem;font-weight:600;color:#2d2d2d;margin-bottom:12px;">This is a popup/modal element!</div>
+      <div style="color:#555;">You triggered this by adding <b>popup=on</b> to the URL.</div>
+    </div>
+  </div>
+  <!-- Help Modal -->
+  <div id="help-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(40,40,40,0.55);z-index:4000;align-items:center;justify-content:center;">
+    <div style="background:rgba(255,255,255,0.98);padding:32px 24px 24px 24px;border-radius:16px;box-shadow:0 4px 32px 0 rgba(0,0,0,0.18);max-width:96vw;max-height:90vh;position:relative;overflow:auto;">
+      <button id="help-close" style="position:absolute;top:12px;right:12px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#a259ec;">&times;</button>
+      <div style="font-size:1.3rem;font-weight:700;color:#2d2d2d;margin-bottom:12px;">Visual Regression Parameters</div>
+      <div id="param-form" class="param-grid"></div>
+      <div style="display:flex;gap:12px;justify-content:flex-end;">
+        <button id="param-reset" type="button" style="background:#ece6fa;color:#a259ec;border:none;border-radius:8px;padding:10px 22px;font-size:1.08rem;cursor:pointer;font-weight:700;">Reset</button>
+        <button id="param-apply" style="background:#a259ec;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:1.08rem;cursor:pointer;font-weight:700;">Apply</button>
+      </div>
+    </div>
+  </div>
+  <!-- Side Panel -->
+  <div id="side-panel" class="side-panel">
+    <button class="side-panel-close" id="side-panel-close">&times;</button>
+    <div class="side-panel-content">
+      <b>Side Panel</b><br/>
+      This is a placeholder for your side panel content.<br/>
+      You can put anything here!
+    </div>
+  </div>
+  <footer class="footer">
+    Creator. Builder. Curious? Let&#39;s talk &rarr; <a href="https://linkedin.com/in/vijopv83" target="_blank">linkedin.com/in/vijopv83</a>
+  </footer>
+  <script>
+    function getUrlParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+    function hasParam(name, value) {
+      const param = getUrlParam(name);
+      if (typeof value === 'undefined') return param !== null;
+      return param === value;
+    }
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
+    function randomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+    function showCookieBanner() {
+      if (document.cookie.includes('cookieBannerDismissed=true')) return;
+      const banner = document.createElement('div');
+      banner.className = 'cookie-banner';
+      banner.innerHTML = `
+        <div style="flex:1;min-width:0;">
+          We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. By clicking "Accept", you agree to our website's cookie use as described in our <a href="#" style="color:#ff9800;text-decoration:underline;font-weight:600;">Cookie Policy</a>. You can change your cookie settings at any time by clicking "Preferences."
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:180px;">
+          <button class="cookie-btn-prefs">Preferences</button>
+          <button class="cookie-btn-decline">Decline</button>
+          <button class="cookie-btn-accept">Accept</button>
+        </div>
+      `;
+      document.body.appendChild(banner);
+      banner.querySelector('.cookie-btn-accept').onclick = function() {
+        banner.style.bottom = '-100px';
+        setTimeout(() => banner.remove(), 350);
+        document.cookie = 'cookieBannerDismissed=true; path=/; max-age=31536000';
+      };
+      banner.querySelector('.cookie-btn-decline').onclick = function() {
+        banner.style.bottom = '-100px';
+        setTimeout(() => banner.remove(), 350);
+        document.cookie = 'cookieBannerDismissed=true; path=/; max-age=31536000';
+      };
+      banner.querySelector('.cookie-btn-prefs').onclick = function() {
+        alert('Cookie preferences dialog would open.');
+      };
+    }
+    function showScrollingBanner() {
+      const banner = document.getElementById('scrolling-banner');
+      if (banner) {
+        banner.className = 'scrolling-banner';
+        banner.style.display = 'flex';
+        banner.innerHTML = '<div class="scrolling-banner-content">Visual Regression Testing Mode Active &mdash; Dynamic UI changes enabled for testing &mdash; Try different parameters for font, color, layout, and image &mdash; Test accessibility and responsiveness &mdash; Simulate visual bugs and edge cases &mdash; Easily reset or combine features for robust regression testing</div>';
+      }
+    }
+    function applyVisualParams() {
+      const html = document.documentElement;
+      const body = document.body;
+      // Always show all UI elements by default
+      html.classList.remove('hide-image', 'hide-form', 'font-bold', 'font-normal');
+      // Font colour
+      const fontColour = getUrlParam('fontColour');
+      if (fontColour) {
+        document.body.style.color = decodeURIComponent(fontColour);
+        document.body.style.setProperty('--main-text', decodeURIComponent(fontColour));
+      }
+      // Theme
+      if (hasParam('theme', 'dark')) html.classList.add('theme-dark');
+      if (hasParam('theme', 'light')) html.classList.add('theme-light');
+      // Font
+      if (hasParam('font', 'serif')) html.classList.add('font-serif');
+      if (hasParam('font', 'sans') || !getUrlParam('font')) html.classList.add('font-sans');
+      if (hasParam('font', 'mono')) html.classList.add('font-mono');
+      // Font size
+      if (hasParam('fontSize', 'large')) html.classList.add('font-large');
+      if (hasParam('fontSize', 'small')) html.classList.add('font-small');
+      if (hasParam('fontSize', 'normal') || !getUrlParam('fontSize')) html.classList.add('font-normal');
+      // Font bold
+      if (hasParam('fontBold', 'on')) html.classList.add('font-bold');
+      // Offset
+      if (hasParam('offset', 'on')) document.querySelector('.container').classList.add('offset-page');
+      // Border
+      if (hasParam('border', 'on')) html.classList.add('border-card');
+      // Shadow
+      if (hasParam('shadow', 'off')) html.classList.add('shadow-off');
+      // Animations
+      if (hasParam('anim', 'on')) {
+        const card = document.querySelector('.login-card');
+        if (card) {
+          card.style.opacity = 0;
+          card.style.transform = 'translateY(40px) scale(0.98)';
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1)';
+            card.style.opacity = 1;
+            card.style.transform = 'translateY(0) scale(1)';
+          }, 100);
+        }
+        document.querySelectorAll('.login-btn, .social-btn, .input-group, .signup-link, .login-title, .login-subtitle').forEach(el => {
+          el.style.opacity = 0;
+          el.style.transform = 'translateY(30px)';
+        });
+        setTimeout(() => {
+          document.querySelectorAll('.login-btn, .social-btn, .input-group, .signup-link, .login-title, .login-subtitle').forEach((el, i) => {
+            setTimeout(() => {
+              el.style.transition = 'opacity 0.5s, transform 0.5s';
+              el.style.opacity = 1;
+              el.style.transform = 'translateY(0)';
+            }, 120 + i * 80);
+          });
+        }, 200);
+      }
+      // RTL
+      if (hasParam('rtl', 'on')) html.classList.add('rtl');
+      // Blur & Grayscale
+      if (hasParam('blur', 'on') && hasParam('grayscale', 'on')) {
+        html.classList.add('blur-all', 'grayscale');
+      } else if (hasParam('blur', 'on')) {
+        html.classList.add('blur-all');
+      } else if (hasParam('grayscale', 'on')) {
+        html.classList.add('grayscale');
+      }
+      // Overlay
+      if (hasParam('overlay', 'on')) {
+        document.querySelectorAll('.login-right .slider-img, .login-right img').forEach(img => {
+          if (!img.parentElement.querySelector('.img-overlay')) {
+            const overlay = document.createElement('div');
+            overlay.className = 'img-overlay';
+            img.parentElement.style.position = 'relative';
+            img.parentElement.appendChild(overlay);
+          }
+        });
+      } else {
+        document.querySelectorAll('.img-overlay').forEach(el => el.remove());
+      }
+      // Invert Colors
+      if (hasParam('invert', 'on')) html.classList.add('invert-colors');
+      // Disable Animations
+      if (hasParam('disableAnim', 'on')) html.classList.add('disable-animations');
+      // Show Grid
+      let gridOverlay = document.getElementById('grid-overlay');
+      if (!gridOverlay) {
+        gridOverlay = document.createElement('div');
+        gridOverlay.id = 'grid-overlay';
+        document.body.appendChild(gridOverlay);
+      } else {
+        document.body.appendChild(gridOverlay); // ensure it's last child
+      }
+      if (hasParam('grid', 'on')) {
+        gridOverlay.style.display = 'block';
+      } else {
+        gridOverlay.style.display = 'none';
+      }
+      // Show Ruler
+      let rulerX = document.getElementById('ruler-x');
+      let rulerY = document.getElementById('ruler-y');
+      function createRulerX() {
+        if (rulerX) rulerX.remove();
+        rulerX = document.createElement('div');
+        rulerX.id = 'ruler-x';
+        rulerX.style.position = 'fixed';
+        rulerX.style.left = '0';
+        rulerX.style.top = '0';
+        rulerX.style.right = '0';
+        rulerX.style.height = '24px';
+        rulerX.style.display = 'flex';
+        rulerX.style.alignItems = 'flex-end';
+        rulerX.style.zIndex = '100000';
+        for (let i = 0; i < window.innerWidth; i += 40) {
+          const mark = document.createElement('div');
+          mark.className = 'ruler-mark';
+          mark.style.position = 'absolute';
+          mark.style.left = (i + 24) + 'px';
+          mark.style.bottom = '2px';
+          mark.textContent = i;
+          rulerX.appendChild(mark);
+        }
+        document.body.appendChild(rulerX);
+      }
+      function createRulerY() {
+        if (rulerY) rulerY.remove();
+        rulerY = document.createElement('div');
+        rulerY.id = 'ruler-y';
+        rulerY.style.position = 'fixed';
+        rulerY.style.left = '0';
+        rulerY.style.top = '0';
+        rulerY.style.bottom = '0';
+        rulerY.style.width = '24px';
+        rulerY.style.display = 'flex';
+        rulerY.style.flexDirection = 'column';
+        rulerY.style.alignItems = 'flex-end';
+        rulerY.style.zIndex = '100000';
+        for (let i = 0; i < window.innerHeight; i += 40) {
+          const mark = document.createElement('div');
+          mark.className = 'ruler-mark';
+          mark.style.position = 'absolute';
+          mark.style.top = (i + 24) + 'px';
+          mark.style.right = '2px';
+          mark.textContent = i;
+          rulerY.appendChild(mark);
+        }
+        document.body.appendChild(rulerY);
+      }
+      if (hasParam('ruler', 'on')) {
+        createRulerX();
+        createRulerY();
+      } else {
+        if (rulerX) rulerX.remove();
+        if (rulerY) rulerY.remove();
+      }
+      // Hide Footer
+      if (hasParam('hideFooter', 'on')) html.classList.add('hide-footer');
+      // High Contrast
+      if (hasParam('highContrast', 'on')) html.classList.add('high-contrast');
+      // Hide image
+      if (hasParam('hideImage', 'on')) html.classList.add('hide-image');
+      // Hide form
+      if (hasParam('hideForm', 'on')) html.classList.add('hide-form');
+      // Button style
+      if (hasParam('buttonStyle', 'alt')) html.classList.add('alt-btn');
+      // Banner
+      if (hasParam('banner', 'on')) showScrollingBanner();
+      // Cookie
+      if (hasParam('cookie', 'on')) showCookieBanner();
+      // Hide one social button
+      if (hasParam('hideSocial', 'on')) {
+        const socialBtns = Array.from(document.querySelectorAll('.social-login .social-btn'));
+        if (socialBtns.length > 0) {
+          const idx = randomInt(socialBtns.length);
+          socialBtns[idx].classList.add('hide-social-btn');
+        }
+      }
+      // Show countdown timer
+      if (hasParam('timer', 'on')) {
+        const timerDiv = document.getElementById('countdown-timer');
+        if (timerDiv) {
+          timerDiv.style.display = 'block';
+          let timeLeft = 600; // 10 minutes in seconds
+          function updateTimer() {
+            const min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+            const sec = String(timeLeft % 60).padStart(2, '0');
+            timerDiv.textContent = `Time left: ${min}:${sec}`;
+            if (timeLeft > 0) {
+              timeLeft--;
+              setTimeout(updateTimer, 1000);
+            } else {
+              timerDiv.textContent = 'Time is up!';
+            }
+          }
+          updateTimer();
+        }
+      } else {
+        // Hide timer if not requested
+        const timerDiv = document.getElementById('countdown-timer');
+        if (timerDiv) timerDiv.style.display = 'none';
+      }
+      // Simulate broken image
+      const brokenImage = getUrlParam('brokenImage') === 'on';
+      // Random pixel
+      const randomPixel = getUrlParam('randomPixel') === 'on';
+      // Image slider
+      const sliderParam = getUrlParam('slider');
+      const imgEl = document.getElementById('slider-img');
+      const dotsEl = document.getElementById('slider-dots');
+      const loginRight = document.getElementById('login-right');
+      // If brokenImage and no slider, show broken image
+      if (brokenImage && sliderParam !== 'on' && imgEl) {
+        imgEl.src = 'broken-image-url.jpg';
+      }
+      if (sliderParam === 'on') {
+        const images = brokenImage
+          ? [
+              'broken-image-url.jpg',
+              'broken-image-url2.jpg',
+              'broken-image-url3.jpg',
+              'broken-image-url4.jpg',
+              'broken-image-url5.jpg'
+            ]
+          : [
+            'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80'
+          ];
+        let idx = 0;
+        function renderDots() {
+          if (!dotsEl) return;
+          dotsEl.innerHTML = '';
+          images.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.className = 'slider-dot' + (i === idx ? ' active' : '');
+            dot.onclick = () => {
+              idx = i;
+              imgEl.src = images[idx];
+              renderDots();
+            };
+            dotsEl.appendChild(dot);
+          });
+        }
+        if (imgEl && dotsEl) {
+          renderDots();
+          setInterval(() => {
+            idx = (idx + 1) % images.length;
+            imgEl.src = images[idx];
+            renderDots();
+          }, 3000);
+        }
+      }
+      // Random pixel overlay
+      if (randomPixel && loginRight) {
+        const pixel = document.createElement('div');
+        pixel.className = 'random-pixel';
+        pixel.style.background = `rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`;
+        pixel.style.left = Math.floor(Math.random() * (loginRight.offsetWidth - 1)) + 'px';
+        pixel.style.top = Math.floor(Math.random() * (loginRight.offsetHeight - 1)) + 'px';
+        loginRight.appendChild(pixel);
+      }
+      // Popup/modal
+      if (hasParam('popup', 'on')) {
+        const popup = document.getElementById('popup-modal');
+        if (popup) {
+          popup.style.display = 'flex';
+          const closeBtn = document.getElementById('popup-close');
+          if (closeBtn) {
+            closeBtn.onclick = () => { popup.style.display = 'none'; };
+          }
+        }
+      }
+      // Help Modal Logic
+      const helpIcon = document.getElementById('help-icon');
+      const helpModal = document.getElementById('help-modal');
+      const helpClose = document.getElementById('help-close');
+      const paramForm = document.getElementById('param-form');
+      const paramApply = document.getElementById('param-apply');
+      if (helpIcon && helpModal && helpClose && paramForm && paramApply) {
+        const PARAM_SECTIONS = [
+          {title: 'Theme', keys: ['theme']},
+          {title: 'Font', keys: ['font', 'fontSize', 'fontColour', 'fontBold', 'subheading']},
+          {title: 'Layout', keys: ['offset', 'border', 'shadow', 'anim', 'rtl', 'invert', 'disableAnim', 'hideFooter', 'grid', 'ruler']},
+          {title: 'Image', keys: ['blur', 'grayscale', 'overlay', 'highContrast', 'hideImage', 'slider', 'brokenImage', 'randomPixel']},
+          {title: 'Form', keys: ['hideForm', 'buttonStyle', 'hideSocial', 'timer']},
+          {title: 'Banner & Popup', keys: ['banner', 'cookie', 'popup']}
+        ];
+        const PARAMS = [
+          {key:'theme', label:'Dark Theme', value:'dark', type:'radio', group:'theme'},
+          {key:'theme', label:'Light Theme', value:'light', type:'radio', group:'theme', default: true},
+          {key:'font', label:'Serif Font', value:'serif', type:'radio', group:'font'},
+          {key:'font', label:'Sans Font', value:'sans', type:'radio', group:'font'},
+          {key:'font', label:'Mono Font', value:'mono', type:'radio', group:'font'},
+          {key:'fontSize', label:'Large Font', value:'large', type:'radio', group:'fontSize'},
+          {key:'fontSize', label:'Normal Font', value:'normal', type:'radio', group:'fontSize', default: true},
+          {key:'fontSize', label:'Small Font', value:'small', type:'radio', group:'fontSize'},
+          {key:'fontBold', label:'Bold', value:'on', type:'checkbox'},
+          {key:'fontColour', label:'Font Colour', value:'', type:'color'},
+          {key:'subheading', label:'Change Subheading', value:'on', type:'checkbox'},
+          {key:'offset', label:'Offset Page', value:'on', type:'checkbox'},
+          {key:'border', label:'Border on Card', value:'on', type:'checkbox'},
+          {key:'shadow', label:'No Shadow', value:'off', type:'checkbox'},
+          {key:'anim', label:'Animate Elements', value:'on', type:'checkbox'},
+          {key:'rtl', label:'Right-to-Left Layout', value:'on', type:'checkbox'},
+          {key:'invert', label:'Invert Colors', value:'on', type:'checkbox'},
+          {key:'disableAnim', label:'Disable Animations', value:'on', type:'checkbox'},
+          {key:'hideFooter', label:'Hide Footer', value:'on', type:'checkbox'},
+          {key:'grid', label:'Show Grid', value:'on', type:'checkbox'},
+          {key:'blur', label:'Blur Image', value:'on', type:'checkbox'},
+          {key:'grayscale', label:'Grayscale Image', value:'on', type:'checkbox'},
+          {key:'overlay', label:'Overlay', value:'on', type:'checkbox'},
+          {key:'highContrast', label:'High Contrast', value:'on', type:'checkbox'},
+          {key:'hideImage', label:'Hide Image', value:'on', type:'checkbox'},
+          {key:'slider', label:'Enable Image Slider', value:'on', type:'checkbox'},
+          {key:'brokenImage', label:'Simulate Broken Image', value:'on', type:'checkbox'},
+          {key:'randomPixel', label:'Random Pixel', value:'on', type:'checkbox'},
+          {key:'hideForm', label:'Hide Form', value:'on', type:'checkbox'},
+          {key:'buttonStyle', label:'Alternate Button Style', value:'alt', type:'checkbox'},
+          {key:'hideSocial', label:'Hide One Social Button', value:'on', type:'checkbox'},
+          {key:'timer', label:'Show Countdown Timer', value:'on', type:'checkbox'},
+          {key:'banner', label:'Show Banner', value:'on', type:'checkbox'},
+          {key:'cookie', label:'Show Cookie Banner', value:'on', type:'checkbox'},
+          {key:'popup', label:'Show Popup', value:'on', type:'checkbox'},
+          {key:'ruler', label:'Show Ruler', value:'on', type:'checkbox'}
+        ];
+        function getCurrentParams() {
+          const params = new URLSearchParams(window.location.search);
+          return Object.fromEntries(params.entries());
+        }
+        function renderParamForm() {
+          paramForm.innerHTML = '';
+          const current = getCurrentParams();
+          PARAM_SECTIONS.forEach(section => {
+            const sectionTitle = document.createElement('div');
+            sectionTitle.className = 'param-section';
+            sectionTitle.textContent = section.title;
+            paramForm.appendChild(sectionTitle);
+            section.keys.forEach(key => {
+              PARAMS.filter(p => p.key === key).forEach(param => {
+                let checked = false;
+                if (param.type === 'checkbox') checked = current[param.key] === param.value;
+                if (param.type === 'radio') {
+                  if (current[param.key]) checked = current[param.key] === param.value;
+                  else if (param.default) checked = true;
+                }
+                if (param.type === 'color') checked = !!current[param.key];
+                if (param.type === 'number') checked = !!current[param.key];
+                // Remove Image Slider (seconds) number input, always default to 3 seconds
+                if (param.key === 'slider' && param.type === 'number') return;
+                const label = document.createElement('label');
+                label.style.display = 'flex';
+                label.style.alignItems = 'center';
+                label.style.gap = '8px';
+                // Show current value for radio/color/number
+                let currentValue = null;
+                if (param.type === 'radio' && checked) currentValue = param.label;
+                if (param.type === 'color' && checked) currentValue = current[param.key];
+                if (param.type === 'number' && checked) currentValue = current[param.key];
+                if (param.type === 'checkbox' && checked && param.key !== 'slider') currentValue = 'On';
+                if (param.type === 'checkbox' && !checked && param.key !== 'slider') currentValue = null;
+                if (param.type === 'checkbox') {
+                  const input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.name = param.key;
+                  input.value = param.value;
+                  input.checked = checked;
+                  label.appendChild(input);
+                  label.appendChild(document.createTextNode(param.label));
+                  if (currentValue) {
+                    const span = document.createElement('span');
+                    span.className = 'current-value';
+                    span.textContent = currentValue;
+                    label.appendChild(span);
+                  }
+                  paramForm.appendChild(label);
+                } else if (param.type === 'radio') {
+                  const input = document.createElement('input');
+                  input.type = 'radio';
+                  input.name = param.group;
+                  input.value = param.value;
+                  input.checked = checked;
+                  if (checked) input.setAttribute('checked', 'checked');
+                  label.appendChild(input);
+                  // Highlight current theme
+                  if (param.key === 'theme' && checked) {
+                    label.classList.add('theme-radio', 'selected');
+                  }
+                  label.appendChild(document.createTextNode(param.label));
+                  if (checked) {
+                    const span = document.createElement('span');
+                    span.className = 'current-value';
+                    span.textContent = '(Selected)';
+                    label.appendChild(span);
+                  }
+                  paramForm.appendChild(label);
+                } else if (param.type === 'color') {
+                  const input = document.createElement('input');
+                  input.type = 'color';
+                  input.name = param.key;
+                  input.value = current[param.key] || '#2d2d2d';
+                  label.appendChild(document.createTextNode(param.label));
+                  label.appendChild(input);
+                  if (checked) {
+                    const span = document.createElement('span');
+                    span.className = 'current-value';
+                    span.textContent = current[param.key];
+                    label.appendChild(span);
+                  }
+                  paramForm.appendChild(label);
+                } else if (param.type === 'number') {
+                  const input = document.createElement('input');
+                  input.type = 'number';
+                  input.name = param.key;
+                  input.value = current[param.key] || param.value;
+                  input.min = 1;
+                  input.max = 30;
+                  label.appendChild(document.createTextNode(param.label));
+                  label.appendChild(input);
+                  if (checked) {
+                    const span = document.createElement('span');
+                    span.className = 'current-value';
+                    span.textContent = current[param.key];
+                    label.appendChild(span);
+                  }
+                  paramForm.appendChild(label);
+                }
+              });
+            });
+          });
+        }
+        helpIcon.onclick = () => {
+          helpModal.style.display = 'flex';
+          renderParamForm();
+        };
+        helpClose.onclick = () => { helpModal.style.display = 'none'; };
+        paramApply.onclick = (e) => {
+          e.preventDefault();
+          const params = new URLSearchParams();
+          // Collect all inputs in the paramForm div
+          const inputs = paramForm.querySelectorAll('input');
+          const radioGroups = {};
+          inputs.forEach(input => {
+            if (input.type === 'checkbox') {
+              if (input.checked) params.set(input.name, input.value);
+              else if (params.get(input.name) === input.value) params.delete(input.name);
+            } else if (input.type === 'radio') {
+              if (!radioGroups[input.name]) radioGroups[input.name] = null;
+              if (input.checked) radioGroups[input.name] = input.value;
+            } else if (input.type === 'color' || input.type === 'number') {
+              if (input.value && (input.type !== 'number' || params.has('slider'))) params.set(input.name, input.value);
+            }
+          });
+          // Set radio groups
+          Object.entries(radioGroups).forEach(([name, value]) => {
+            if (value) params.set(name, value);
+          });
+          window.location.search = params.toString();
+        };
+        // Reset button logic
+        const paramReset = document.getElementById('param-reset');
+        if (paramReset) {
+          paramReset.onclick = () => {
+            window.location.search = '';
+          };
+        }
+      }
+      // Side panel logic
+      const openSidePanelBtn = document.getElementById('open-side-panel-btn');
+      const sidePanel = document.getElementById('side-panel');
+      const sidePanelClose = document.getElementById('side-panel-close');
+      if (openSidePanelBtn && sidePanel && sidePanelClose) {
+        openSidePanelBtn.onclick = () => { sidePanel.classList.add('open'); };
+        sidePanelClose.onclick = () => { sidePanel.classList.remove('open'); };
+      }
+      // Simulate broken icon
+      const brokenIcon = getUrlParam('brokenIcon') === 'on';
+      if (brokenIcon) {
+        // Replace all Font Awesome icons with a broken icon placeholder
+        document.querySelectorAll('i.fab, i.far, i.fa-regular, i.fa-brands, i.fa-eye, i.fa-google, i.fa-facebook-f, i.fa-apple, i.fa-linkedin-in').forEach(icon => {
+          icon.className = '';
+          icon.innerHTML = '<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+        });
+      } else {
+        // restore icons
+        document.querySelectorAll('.social-btn[data-provider]').forEach(btn => {
+          const provider = btn.getAttribute('data-provider');
+          let icon = '';
+          if (provider === 'google') icon = '<i class="fab fa-google"></i>';
+          if (provider === 'facebook') icon = '<i class="fab fa-facebook-f"></i>';
+          if (provider === 'apple') icon = '<i class="fab fa-apple"></i>';
+          if (provider === 'linkedin') icon = '<i class="fab fa-linkedin-in"></i>';
+          let iTag = btn.querySelector('i');
+          if (iTag) iTag.outerHTML = icon;
+          else btn.insertAdjacentHTML('afterbegin', icon);
+        });
+      }
+      // Forgot password logic
+      const forgotLink = document.getElementById('forgot-link');
+      const backToLogin = document.getElementById('back-to-login');
+      const loginFields = document.getElementById('login-fields');
+      const forgotFields = document.getElementById('forgot-fields');
+      if (forgotLink && loginFields && forgotFields) {
+        forgotLink.onclick = (e) => {
+          e.preventDefault();
+          loginFields.style.display = 'none';
+          forgotFields.style.display = 'block';
+        };
+      }
+      if (backToLogin && loginFields && forgotFields) {
+        backToLogin.onclick = (e) => {
+          e.preventDefault();
+          forgotFields.style.display = 'none';
+          loginFields.style.display = 'block';
+        };
+      }
+      // System Info panel
+      const sidePanelContent = document.querySelector('.side-panel-content');
+      if (sidePanelContent) {
+        function getOS() {
+          const userAgent = window.navigator.userAgent;
+          if (userAgent.indexOf('Win') !== -1) return 'Windows';
+          if (userAgent.indexOf('Mac') !== -1) return 'MacOS';
+          if (userAgent.indexOf('Linux') !== -1) return 'Linux';
+          if (userAgent.indexOf('Android') !== -1) return 'Android';
+          if (userAgent.indexOf('like Mac') !== -1) return 'iOS';
+          return 'Unknown';
+        }
+        function getBrowserAndVersion() {
+          const ua = navigator.userAgent;
+          let browser = 'Unknown', version = '';
+          if (/Edg\/(\d+\.\d+)/.test(ua)) {
+            browser = 'Edge'; version = ua.match(/Edg\/(\d+\.\d+)/)[1];
+          } else if (/OPR\/(\d+\.\d+)/.test(ua)) {
+            browser = 'Opera'; version = ua.match(/OPR\/(\d+\.\d+)/)[1];
+          } else if (/Chrome\/(\d+\.\d+)/.test(ua)) {
+            browser = 'Chrome'; version = ua.match(/Chrome\/(\d+\.\d+)/)[1];
+          } else if (/Firefox\/(\d+\.\d+)/.test(ua)) {
+            browser = 'Firefox'; version = ua.match(/Firefox\/(\d+\.\d+)/)[1];
+          } else if (/Version\/(\d+\.\d+).*Safari/.test(ua)) {
+            browser = 'Safari'; version = ua.match(/Version\/(\d+\.\d+)/)[1];
+          }
+          return browser + (version ? ' ' + version : '');
+        }
+        function updateSystemInfo() {
+          const os = getOS();
+          const browser = getBrowserAndVersion();
+          const screenRes = `${window.screen.width} x ${window.screen.height}`;
+          const viewportRes = `${window.innerWidth} x ${window.innerHeight}`;
+          const userAgent = navigator.userAgent;
+          const dpr = window.devicePixelRatio;
+          const lang = navigator.language;
+          const platform = navigator.platform;
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const url = window.location.href;
+          sidePanelContent.innerHTML = `
+            <b style="font-size:1.15em;">System Info</b>
+            <div style="margin:16px 0 0 0;display:flex;flex-direction:column;gap:10px;">
+              <div><b>OS:</b> <span style="margin-left:6px;">${os}</span></div>
+              <div><b>Browser:</b> <span style="margin-left:6px;">${browser}</span></div>
+              <div><b>Screen Resolution:</b> <span style="margin-left:6px;">${screenRes}</span></div>
+              <div><b>Viewport Resolution:</b> <span style="margin-left:6px;">${viewportRes}</span></div>
+              <div><b>Device Pixel Ratio:</b> <span style="margin-left:6px;">${dpr}</span></div>
+              <div><b>Language:</b> <span style="margin-left:6px;">${lang}</span></div>
+              <div><b>Platform:</b> <span style="margin-left:6px;">${platform}</span></div>
+              <div><b>Time Zone:</b> <span style="margin-left:6px;">${tz}</span></div>
+              <div><b>Current URL:</b> <span style="margin-left:6px;word-break:break-all;">${url}</span></div>
+              <div><b>User Agent:</b> <span style="margin-left:6px;word-break:break-all;">${userAgent}</span></div>
+            </div>
+          `;
+        }
+        if (sidePanel) {
+          sidePanel.addEventListener('transitionend', function() {
+            if (sidePanel.classList.contains('open')) updateSystemInfo();
+          });
+        }
+      }
+      // Change Subheading
+      if (hasParam('subheading', 'on')) {
+        const sub = document.querySelector('.login-subtitle');
+        if (sub) sub.textContent = 'Welcome back! Enter your details';
+      }
+    }
+    window.addEventListener('DOMContentLoaded', applyVisualParams);
+  </script>
+</body>
+</html> 
