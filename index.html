@@ -155,9 +155,14 @@
     @media (max-width: 900px) { /* ...existing tablet rules... */ }
     /* Desktop: above 900px */
     /* Default layout applies */
+    .high-contrast-img { filter: contrast(2) brightness(1.2) !important; }
+    .distorted-img { filter: none !important; }
   </style>
 </head>
 <body class="bg-purple-100 min-h-screen flex flex-col justify-center items-center">
+  <div id="static-banner" style="display:none;" class="fixed top-0 left-0 w-full bg-purple-700 text-gray-100 text-center py-3 px-4 font-semibold text-base shadow-xl z-[3000]" role="alert">
+    <span class="font-bold">Reminder:</span> Visual regression detects unintended UI changes between software versions.
+  </div>
   <!-- Main Header -->
   <header class="py-4 px-6 flex justify-center items-center z-[200]">
     <h1 class="text-2xl md:text-3xl font-extrabold text-purple-700 text-center tracking-tight">Visual Regression - Evaluator</h1>
@@ -168,15 +173,17 @@
     <path d="M0,700 Q600,900 1440,600" stroke="#d1b3ff" stroke-width="2" fill="none"/>
   </svg>
   <!-- Login Card -->
-  <div id="main-card" class="flex w-full max-w-4xl rounded-3xl shadow-lg bg-white overflow-hidden mt-8 items-stretch min-h-[320px] h-auto md:h-[420px] lg:h-[480px] xl:h-[520px] z-[100]">
+  <div id="main-card" class="flex w-full max-w-4xl rounded-3xl bg-white overflow-hidden mt-8 items-stretch min-h-[320px] h-auto md:h-[420px] lg:h-[480px] xl:h-[520px] z-[100]">
     <!-- Login Left -->
     <div class="flex-1 p-8 flex flex-col justify-center h-full min-w-[420px] md:min-w-[480px]">
-      <div class="flex items-center mb-2">
-          <span class="inline-block w-8 h-4 bg-purple-200 rounded-full mr-2"></span>
+      <div class="flex items-center mb-2 justify-between">
+        <span class="inline-block w-8 h-4 bg-purple-200 rounded-full mr-2"></span>
         <h2 class="text-2xl font-bold" id="login-heading">Log In</h2>
-        <button class="ml-auto flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" id="open-side-panel-btn" title="Info"><i class="fa-solid fa-info"></i></button>
-        <button id="lang-icon" class="ml-2 flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Switch Language"><i class="fa-solid fa-globe"></i></button>
-        <button id="help-icon" class="ml-2 flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Settings"><i class="fa-solid fa-cog"></i></button>
+        <div id="header-btn-group" class="flex gap-2 mb-2 transition-all duration-300">
+          <button class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" id="open-side-panel-btn" title="Info"><i class="fa-solid fa-info"></i></button>
+          <button id="lang-icon" class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Switch Language"><i class="fa-solid fa-globe"></i></button>
+          <button id="help-icon" class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Settings"><i class="fa-solid fa-cog"></i></button>
+        </div>
       </div>
         <p class="text-gray-400 mb-6" id="login-subtitle">Welcome back! Please enter your details</p>
         <form class="space-y-3" id="login-form" autocomplete="off">
@@ -192,13 +199,13 @@
             </div>
             <a href="#" class="text-purple-500 text-sm mb-2 inline-block" id="forgot-link">forgot password?</a>
             <button type="submit" id="login-btn" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2" disabled>Log in</button>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mb-2 w-full min-w-[420px] max-w-lg mx-auto">
-              <button type="button" class="border rounded-md py-2 w-full flex items-center justify-center gap-2 text-red-500"><i class="fab fa-google"></i> Google</button>
-              <button type="button" class="border rounded-md py-2 w-full flex items-center justify-center gap-2 text-blue-600"><i class="fab fa-facebook-f"></i> Facebook</button>
-              <button type="button" class="border rounded-md py-2 w-full flex items-center justify-center gap-2 text-black"><i class="fab fa-apple"></i> Apple</button>
-              <button type="button" class="border rounded-md py-2 w-full flex items-center justify-center gap-2 text-blue-700"><i class="fab fa-linkedin-in"></i> LinkedIn</button>
-              <button type="button" class="border rounded-md py-2 w-full flex items-center justify-center gap-2 text-blue-800"><i class="fab fa-microsoft"></i> Microsoft</button>
-              <button type="button" class="border rounded-md py-2 w-full flex items-center justify-center gap-2 text-sky-400"><i class="fab fa-twitter"></i> Twitter</button>
+            <div class="grid grid-cols-3 gap-2 mb-2 w-full mx-auto" style="grid-template-columns: repeat(3, 1fr);">
+              <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-red-500 text-sm"><i class="fab fa-google"></i> Google</button>
+              <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-blue-600 text-sm"><i class="fab fa-facebook-f"></i> Facebook</button>
+              <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-black text-sm"><i class="fab fa-apple"></i> Apple</button>
+              <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-blue-700 text-sm"><i class="fab fa-linkedin-in"></i> LinkedIn</button>
+              <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-blue-800 text-sm"><i class="fab fa-microsoft"></i> Microsoft</button>
+              <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-sky-400 text-sm"><i class="fab fa-twitter"></i> Twitter</button>
             </div>
           </div>
           <div id="forgot-fields" style="display:none;">
@@ -307,8 +314,9 @@
         <option value="hi">हिन्दी</option>
         <option value="bn">বাংলা</option>
         <option value="te">తెలుగు</option>
-        <option value="mr">మराठी</option>
+        <option value="mr">मराठी</option>
         <option value="ml">മലയാളം</option>
+        <option value="ar">العربية</option>
       </select>
       <button id="lang-apply" class="w-full mt-2 px-4 py-2 bg-purple-500 text-white rounded font-semibold shadow hover:bg-purple-600 transition">Apply</button>
     </div>
@@ -600,7 +608,7 @@
     const paramReset = document.getElementById('param-reset');
     const PARAM_SECTIONS = [
       {title: 'Typography', keys: ['font', 'fontSize', 'fontColour', 'fontBold', 'fallbackFont', 'subheadingStyle']},
-      {title: 'Layout', keys: ['offsetVertical', 'offsetHorizontal', 'border', 'shadow', 'rtl', 'grid', 'ruler', 'extraPadding']},
+      {title: 'Layout', keys: ['offsetVertical', 'offsetHorizontal', 'border', 'shadow', 'rtl', 'grid', 'ruler']},
       {title: 'Theme & Effects', keys: ['theme', 'invert', 'anim', 'banner', 'toast', 'popup', 'cookie', 'floatingBox']},
       {title: 'Form & UX', keys: ['hideForm', 'buttonStyle', 'hideSocial', 'timer', 'disableLogin', 'inputError', 'hideFooter']},
       {title: 'Image', keys: ['blur', 'grayscale', 'overlay', 'highContrast', 'hideImage', 'slider', 'brokenImage', 'randomPixel', 'distortedImage']}
@@ -648,7 +656,6 @@
       {key:'hideSocial', label:'Hide One Social Button', value:'on', type:'checkbox'},
       {key:'timer', label:'Show Countdown', value:'on', type:'checkbox'},
       {key:'floatingBox', label:'Show Floating Box', value:'on', type:'checkbox'},
-      {key:'extraPadding', label:'Extra Padding', value:'on', type:'checkbox'},
       {key:'inputError', label:'Show Input Error', value:'on', type:'checkbox'},
     ];
     let activeParamTab = 0;
@@ -830,7 +837,49 @@
         ruler = document.createElement('div');
         ruler.id = 'ruler-overlay';
         ruler.className = 'pointer-events-none fixed inset-0 z-50';
-        ruler.innerHTML = `<div class="absolute left-0 top-8 w-full h-10 flex bg-black bg-opacity-60 text-yellow-200 text-base font-mono border-b-2 border-yellow-400">${Array(12).fill(0).map((_,i)=>`<div class=\"flex-1 border-l-2 border-yellow-400 flex items-end justify-end pr-2\">${(i+1)*100}px</div>`).join('')}</div><div class="absolute top-0 left-10 h-full w-10 flex flex-col bg-black bg-opacity-60 text-yellow-200 text-base font-mono border-r-2 border-yellow-400">${Array(12).fill(0).map((_,i)=>`<div class=\"flex-1 border-t-2 border-yellow-400 flex items-end justify-end pb-2\">${(i+1)*100}px</div>`).join('')}</div>`;
+        // Top and left rulers start at 0, increment by 1, lines at every 0.25, labels at major lines
+        const topTicks = 7; // 0 to 6
+        const leftTicks = 5; // 0 to 4
+        // Top labels and major vertical lines
+        let topRuler = '';
+        for(let i=0;i<topTicks;i++){
+          const left = `calc(32px + ${(i/(topTicks-1))*100}% )`;
+          topRuler += `<div style=\"position:absolute;left:${left};top:0;width:32px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#f00;font-weight:bold;transform:translateX(-50%);\">${i}</div>`;
+        }
+        // Left labels and major horizontal lines
+        let leftRuler = '';
+        for(let i=0;i<leftTicks;i++){
+          const top = `calc(24px + ${(i/(leftTicks-1))*100}% )`;
+          leftRuler += `<div style=\"position:absolute;left:0;top:${top};width:32px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#f00;font-weight:bold;transform:translateY(-50%);\">${i}</div>`;
+        }
+        // Draw vertical lines (major and minor)
+        let lines = '';
+        for(let i=0;i<topTicks;i++){
+          const left = `calc(32px + ${(i/(topTicks-1))*100}% )`;
+          lines += `<div style=\"position:absolute;top:24px;left:${left};width:2px;height:calc(100% - 24px);background:#f00;opacity:0.7;\"></div>`;
+          // Minor lines between majors
+          if(i<topTicks-1){
+            for(let j=1;j<4;j++){
+              const minorLeft = `calc(32px + ${((i+j/4)/(topTicks-1))*100}% )`;
+              lines += `<div style=\"position:absolute;top:24px;left:${minorLeft};width:1px;height:calc(100% - 24px);background:#888;opacity:0.3;\"></div>`;
+            }
+          }
+        }
+        // Draw horizontal lines (major and minor)
+        for(let i=0;i<leftTicks;i++){
+          const top = `calc(24px + ${(i/(leftTicks-1))*100}% )`;
+          lines += `<div style=\"position:absolute;left:32px;top:${top};height:2px;width:calc(100% - 32px);background:#f00;opacity:0.7;\"></div>`;
+          // Minor lines between majors
+          if(i<leftTicks-1){
+            for(let j=1;j<4;j++){
+              const minorTop = `calc(24px + ${((i+j/4)/(leftTicks-1))*100}% )`;
+              lines += `<div style=\"position:absolute;left:32px;top:${minorTop};height:1px;width:calc(100% - 32px);background:#888;opacity:0.3;\"></div>`;
+            }
+          }
+        }
+        // 0,0 label in the corner
+        let corner = '<div style="position:absolute;left:0;top:0;width:32px;height:24px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#f00;font-weight:bold;">0,0</div>';
+        ruler.innerHTML = `${topRuler}${leftRuler}${lines}${corner}`;
         document.body.appendChild(ruler);
       }
       ruler.style.display = '';
@@ -971,8 +1020,13 @@
         }
         grid.style.display = '';
       } else if(grid) { grid.style.display = 'none'; }
-      // Show Banner
-      if(params.banner) showBanner(); else hideBanner();
+      // Show static banner if params.banner is set
+      const staticBanner = document.getElementById('static-banner');
+      if(params.banner && staticBanner){
+        staticBanner.style.display = '';
+      }else if(staticBanner){
+        staticBanner.style.display = 'none';
+      }
       // Show Cookie Banner
       if(params.cookie) showCookieBanner(); else hideCookieBanner();
       // Show Popup
@@ -992,6 +1046,166 @@
       } else if(floatBox) { floatBox.style.display = 'none'; }
       // Extra Padding
       card && (params.extraPadding ? card.classList.add('p-12') : card.classList.remove('p-12'));
+      // In applyVisualParams, update Offset Vertical and Extra Padding logic:
+      const mainCard = document.getElementById('main-card');
+      const mainCardParent = mainCard && mainCard.parentElement;
+      if(params.offsetVertical && mainCardParent) {
+        mainCardParent.style.marginTop = '32px';
+      } else if(mainCardParent) {
+        mainCardParent.style.marginTop = '';
+      }
+      // Extra Padding for all cells
+      if(params.extraPadding && mainCard) {
+        mainCard.querySelectorAll(':scope > div').forEach(child => child.classList.add('p-12'));
+      } else if(mainCard) {
+        mainCard.querySelectorAll(':scope > div').forEach(child => child.classList.remove('p-12'));
+      }
+      // Animate SSO buttons and header-btn-group
+      const ssoBtns = document.querySelectorAll('.grid.grid-cols-3 button');
+      const headerBtnGroup = document.getElementById('header-btn-group');
+      if(params.anim){
+        ssoBtns.forEach(btn => btn.classList.add('animate-bounce'));
+        headerBtnGroup && headerBtnGroup.classList.add('animate-pulse');
+      }else{
+        ssoBtns.forEach(btn => btn.classList.remove('animate-bounce'));
+        headerBtnGroup && headerBtnGroup.classList.remove('animate-pulse');
+      }
+      // Hide Form
+      const loginForm = document.getElementById('login-form');
+      if(params.hideForm && loginForm) {
+        loginForm.style.display = 'none';
+      } else if(loginForm) {
+        loginForm.style.display = '';
+      }
+      // Alternate Button Style
+      const loginBtn = document.getElementById('login-btn');
+      if(params.buttonStyle && loginBtn) {
+        loginBtn.classList.add('bg-pink-500','hover:bg-pink-600','border-2','border-pink-700','shadow-lg');
+        loginBtn.classList.remove('bg-purple-500','hover:bg-purple-600');
+      } else if(loginBtn) {
+        loginBtn.classList.remove('bg-pink-500','hover:bg-pink-600','border-2','border-pink-700','shadow-lg');
+        loginBtn.classList.add('bg-purple-500','hover:bg-purple-600');
+      }
+      // Hide One Social Button (hide Twitter)
+      const ssoBtnsAll = document.querySelectorAll('.grid.grid-cols-3 button');
+      if(params.hideSocial && ssoBtnsAll.length > 0) {
+        ssoBtnsAll[ssoBtnsAll.length-1].style.display = 'none';
+      } else if(ssoBtnsAll.length > 0) {
+        ssoBtnsAll.forEach(btn => btn.style.display = '');
+      }
+      // Show Countdown
+      const countdownDiv = document.getElementById('countdown-timer');
+      if(params.timer && countdownDiv) {
+        countdownDiv.classList.remove('hidden');
+        let seconds = 10;
+        countdownDiv.innerText = `Countdown: ${seconds}s`;
+        if(window.countdownInterval) clearInterval(window.countdownInterval);
+        window.countdownInterval = setInterval(() => {
+          seconds--;
+          if(seconds <= 0) {
+            countdownDiv.innerText = 'Time is up!';
+            clearInterval(window.countdownInterval);
+          } else {
+            countdownDiv.innerText = `Countdown: ${seconds}s`;
+          }
+        }, 1000);
+      } else if(countdownDiv) {
+        countdownDiv.classList.add('hidden');
+        countdownDiv.innerText = '';
+        if(window.countdownInterval) clearInterval(window.countdownInterval);
+      }
+      // Show Input Error
+      const emailInput = document.getElementById('email');
+      if(params.inputError && emailInput) {
+        emailInput.classList.add('border-red-500');
+        let error = document.getElementById('email-error');
+        if(!error) {
+          error = document.createElement('div');
+          error.id = 'email-error';
+          error.className = 'text-red-500 text-xs mt-1';
+          error.innerText = 'Invalid email address.';
+          emailInput.parentElement.appendChild(error);
+        }
+      } else if(emailInput) {
+        emailInput.classList.remove('border-red-500');
+        const error = document.getElementById('email-error');
+        if(error) error.remove();
+      }
+      // Hide Footer
+      const pageFooter = document.querySelector('footer');
+      if(params.hideFooter && pageFooter) {
+        pageFooter.style.display = 'none';
+      } else if(pageFooter) {
+        pageFooter.style.display = '';
+      }
+      // --- Image Effects ---
+      const sliderImg = document.getElementById('slider-img');
+      // Reset all effects
+      if(sliderImg) {
+        sliderImg.style.filter = '';
+        sliderImg.style.display = '';
+        sliderImg.style.opacity = '';
+        sliderImg.src = 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=540&q=80';
+        sliderImg.classList.remove('high-contrast-img','distorted-img');
+        const overlay = document.getElementById('img-overlay');
+        if(overlay) overlay.remove();
+      }
+      // Blur
+      if(params.blur && sliderImg) sliderImg.style.filter += ' blur(6px)';
+      // Grayscale
+      if(params.grayscale && sliderImg) sliderImg.style.filter += ' grayscale(1)';
+      // High Contrast
+      if(params.highContrast && sliderImg) {
+        sliderImg.classList.add('high-contrast-img');
+        // fallback for browsers: also add filter
+        sliderImg.style.filter += ' contrast(2) brightness(1.2)';
+      }
+      // Overlay
+      if(params.overlay && sliderImg) {
+        let overlay = document.getElementById('img-overlay');
+        if(!overlay) {
+          overlay = document.createElement('div');
+          overlay.id = 'img-overlay';
+          overlay.className = 'absolute inset-0 bg-black bg-opacity-40 pointer-events-none rounded-r-3xl';
+          sliderImg.parentElement.appendChild(overlay);
+        }
+      }
+      // Hide Image
+      if(params.hideImage && sliderImg) sliderImg.style.display = 'none';
+      // Enable Image Slider
+      if(typeof showSlider === 'function') showSlider(params.slider === 'on');
+      // Simulate Broken Image
+      if(params.brokenImage && sliderImg) sliderImg.src = 'broken-link.jpg';
+      // Random Pixel (add one 9x9 pixel at random location)
+      if(params.randomPixel && sliderImg) {
+        let canvas = document.getElementById('img-noise');
+        if(!canvas) {
+          canvas = document.createElement('canvas');
+          canvas.id = 'img-noise';
+          canvas.width = sliderImg.width || 540;
+          canvas.height = sliderImg.height || 320;
+          canvas.className = 'absolute inset-0 pointer-events-none rounded-r-3xl';
+          sliderImg.parentElement.appendChild(canvas);
+        }
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        const x = Math.floor(Math.random() * (canvas.width - 9));
+        const y = Math.floor(Math.random() * (canvas.height - 9));
+        const color = `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},1)`;
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, 9, 9);
+      } else {
+        const canvas = document.getElementById('img-noise');
+        if(canvas) canvas.remove();
+      }
+      // Distorted Image (stretched horizontally)
+      if(params.distortedImage && sliderImg) {
+        sliderImg.classList.add('distorted-img');
+        sliderImg.style.transform = 'scaleX(1.35)';
+      } else if(sliderImg) {
+        sliderImg.style.transform = '';
+        sliderImg.classList.remove('distorted-img');
+      }
     }
     paramReset.onclick = () => {
       const defaults = getDefaultParams();
@@ -1066,7 +1280,10 @@
     langApply && (langApply.onclick = function() {
       const params = new URLSearchParams(window.location.search);
       params.set('lang', langSelect.value);
-      window.location.search = params.toString();
+      window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+      setLanguageUI(langSelect.value);
+      updateHeaderBtnGroupAlignment();
+      langModal.classList.add('hidden'); // Dismiss the language modal
     });
 
     // --- Language translations ---
@@ -1119,6 +1336,9 @@
       },
       ml: {
         login: 'ലോഗിൻ', subheading: 'തിരികെ സ്വാഗതം! ദയവായി നിങ്ങളുടെ വിവരങ്ങൾ നൽകുക', forgot: 'പാസ്‌വേഡ് മറന്നോ?', loginBtn: 'ലോഗിൻ', signupBtn: 'സൈൻ അപ്പ്', signupLink: 'അക്കൗണ്ട് ഇല്ലേ?', signup: 'സൈൻ അപ്പ്', backToLogin: 'ലോഗിനിലേക്ക് മടങ്ങുക', sendReset: 'റീസെറ്റ് ലിങ്ക് അയയ്ക്കുക', name: 'പേര്', email: 'ഇമെയിൽ', password: 'പാസ്‌വേഡ്', confirm: 'പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക', info: 'വിവരം', settings: 'ക്രമീകരണങ്ങൾ', language: 'നിങ്ങളുടെ ഭാഷ', apply: 'പ്രയോഗിക്കുക',
+      },
+      ar: {
+        login: 'تسجيل الدخول', subheading: 'مرحبًا بعودتك! الرجاء إدخال بياناتك', forgot: 'هل نسيت كلمة المرور؟', loginBtn: 'تسجيل الدخول', signupBtn: 'إنشاء حساب', signupLink: 'ليس لديك حساب؟', signup: 'إنشاء حساب', backToLogin: 'العودة لتسجيل الدخول', sendReset: 'إرسال رابط إعادة التعيين', name: 'الاسم', email: 'البريد الإلكتروني', password: 'كلمة المرور', confirm: 'تأكيد كلمة المرور', info: 'معلومات', settings: 'الإعدادات', language: 'لغتك', apply: 'تطبيق',
       },
     };
     function setLanguageUI(lang) {
@@ -1177,6 +1397,9 @@
       if(signupConfirmInput) signupConfirmInput.placeholder = t.confirm;
       const forgotEmailInput = document.getElementById('forgot-email');
       if(forgotEmailInput) forgotEmailInput.placeholder = t.email;
+      // Set direction for RTL languages
+      const rtlLangs = ['ar', 'he', 'fa', 'ur'];
+      document.body.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
     }
     // Set language on load
     const urlParams = new URLSearchParams(window.location.search);
@@ -1235,28 +1458,41 @@
     function showSocialPopup(type) {
       if(document.getElementById('social-popup')) return;
       const providers = {
-        google: { name: 'Google', color: 'bg-white text-gray-900', icon: 'fab fa-google', btn: 'bg-red-500 text-white', brand: '#EA4335' },
-        facebook: { name: 'Facebook', color: 'bg-white text-gray-900', icon: 'fab fa-facebook-f', btn: 'bg-blue-600 text-white', brand: '#1877F3' },
-        apple: { name: 'Apple', color: 'bg-white text-gray-900', icon: 'fab fa-apple', btn: 'bg-black text-white', brand: '#000' },
-        linkedin: { name: 'LinkedIn', color: 'bg-white text-gray-900', icon: 'fab fa-linkedin-in', btn: 'bg-blue-700 text-white', brand: '#0077B5' },
-        microsoft: { name: 'Microsoft', color: 'bg-white text-gray-900', icon: 'fab fa-microsoft', btn: 'bg-blue-800 text-white', brand: '#0078D4' },
-        twitter: { name: 'Twitter', color: 'bg-white text-gray-900', icon: 'fab fa-twitter', btn: 'bg-sky-400 text-white', brand: '#1DA1F2' }
+        google: { name: 'Google', color: 'bg-white text-gray-900', icon: 'fab fa-google', btn: 'bg-red-500 text-white', brand: '#EA4335', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' },
+        facebook: { name: 'Facebook', color: 'bg-white text-gray-900', icon: 'fab fa-facebook-f', btn: 'bg-blue-600 text-white', brand: '#1877F3', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png' },
+        apple: { name: 'Apple', color: 'bg-white text-gray-900', icon: 'fab fa-apple', btn: 'bg-black text-white', brand: '#000', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
+        linkedin: { name: 'LinkedIn', color: 'bg-white text-gray-900', icon: 'fab fa-linkedin-in', btn: 'bg-blue-700 text-white', brand: '#0077B5', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png' },
+        microsoft: { name: 'Microsoft', color: 'bg-white text-gray-900', icon: 'fab fa-microsoft', btn: 'bg-blue-800 text-white', brand: '#0078D4', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
+        twitter: { name: 'Twitter', color: 'bg-white text-gray-900', icon: 'fab fa-twitter', btn: 'bg-sky-400 text-white', brand: '#1DA1F2', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg' }
       };
       const p = providers[type] || providers.google;
+      const user = { avatar: 'https://randomuser.me/api/portraits/men/32.jpg', name: 'John Doe', email: 'john.doe@email.com' };
       const popup = document.createElement('div');
       popup.id = 'social-popup';
       popup.className = 'fixed inset-0 flex items-center justify-center z-[4000] bg-black bg-opacity-40';
       popup.innerHTML = `
-        <div class="bg-white rounded-2xl shadow-2xl w-[92vw] max-w-[290px] text-center relative flex flex-col items-center border border-gray-200 p-6">
+        <div class="bg-white rounded-2xl shadow-2xl w-[92vw] max-w-[340px] text-center relative flex flex-col items-center border border-gray-200 p-6">
           <button id="social-popup-close" class="absolute top-3 right-4 text-2xl text-purple-500 hover:text-purple-700 transition">&times;</button>
-          <div class="text-2xl font-bold mb-4 flex items-center gap-2" style="color:${p.brand}"><i class="${p.icon}"></i> Continue with ${p.name}</div>
-          <div class="mb-4 text-gray-600">This is a realistic simulation of a ${p.name} login popup for visual regression testing. In a real app, you would be redirected to the provider's OAuth flow.</div>
-          <button class="${p.btn} rounded-lg px-6 py-2 font-semibold shadow w-full mt-2">Continue as User</button>
+          <div class="text-2xl font-bold mb-2 flex items-center gap-2 justify-center" style="color:${p.brand}"><i class="${p.icon}"></i> ${p.name} Sign In</div>
+          <div class="flex flex-col items-center mb-4">
+            <img src="${user.avatar}" alt="User avatar" class="w-14 h-14 rounded-full border mb-1 shadow">
+            <div class="font-semibold text-base">${user.name}</div>
+            <div class="text-xs text-gray-500">${user.email}</div>
+          </div>
+          <div class="mb-4 text-gray-600 text-sm text-left w-full">
+            <b>${p.name}</b> will share your name, email address, and profile picture with <b>Visual Regression - Evaluator</b>.<br>
+            <span class="text-xs text-gray-400">You can review and remove access at any time in your ${p.name} account settings.</span>
+          </div>
+          <div class="flex gap-2 w-full mt-2">
+            <button class="flex-1 rounded-lg px-4 py-2 font-semibold shadow hover:opacity-90 transition" style="background:${p.brand};color:#fff;">Continue as ${user.name.split(' ')[0]}</button>
+            <button class="flex-1 bg-gray-100 text-gray-700 rounded-lg px-4 py-2 font-semibold shadow hover:bg-gray-200 transition">Cancel</button>
+          </div>
         </div>
-      `
+      `;
       document.body.appendChild(popup);
       popup.querySelector('#social-popup-close').onclick = function() { popup.remove(); };
-      popup.querySelector('button.'+p.btn.replace(/ /g,'.')).onclick = function() { popup.remove(); };
+      popup.querySelector('.bg-gray-100').onclick = function() { popup.remove(); };
+      popup.querySelector('.'+p.btn.replace(/ /g,'.')).onclick = function() { popup.remove(); };
     }
     // Attach to all social buttons
     document.querySelectorAll('button').forEach(btn => {
@@ -1267,6 +1503,90 @@
       if(btn.innerHTML.includes('Microsoft')) btn.onclick = function(e){ e.preventDefault(); showSocialPopup('microsoft'); };
       if(btn.innerHTML.includes('Twitter')) btn.onclick = function(e){ e.preventDefault(); showSocialPopup('twitter'); };
     });
+
+    // After setLanguageUI(lang) in JS, add:
+    function updateHeaderBtnGroupAlignment() {
+      const group = document.getElementById('header-btn-group');
+      if (!group) return;
+      if (document.body.dir === 'rtl') {
+        group.classList.remove('justify-end');
+        group.classList.add('justify-start');
+      } else {
+        group.classList.remove('justify-start');
+        group.classList.add('justify-end');
+      }
+    }
+    // Call updateHeaderBtnGroupAlignment() after setLanguageUI(lang)
+    setLanguageUI(lang);
+    updateHeaderBtnGroupAlignment();
+    // Also call updateHeaderBtnGroupAlignment() inside setLanguageUI(lang) after setting dir
+
+    // Fix 'Don't have account? Sign Up' link to always be clickable
+    // In setLanguageUI and after rendering, always re-attach the event listener to #show-signup
+    function attachSignupLinkHandler() {
+      const signupLink = document.getElementById('show-signup');
+      if(signupLink) {
+        signupLink.onclick = function(e) { e.preventDefault(); showSignup(); };
+      }
+    }
+    attachSignupLinkHandler();
+    // Also call attachSignupLinkHandler() in setLanguageUI after updating innerHTML
+
+    // Forgot password OTP flow
+    // In the forgot-fields form, after clicking 'Send Reset Link', replace the form with 6 OTP input boxes, a submit button, and a 'Didn't receive code? Resend code' link
+    // On OTP submit, show the login form again
+    const forgotForm = document.querySelector('#forgot-fields form, #forgot-fields');
+    if(forgotForm) {
+      forgotForm.onsubmit = function(e) {
+        e.preventDefault();
+        // Show OTP input UI
+        const forgotFields = document.getElementById('forgot-fields');
+        forgotFields.innerHTML = `
+          <div class="mb-2 text-center font-semibold">Enter the 6-digit code sent to your email</div>
+          <form id="otp-form" class="flex flex-col items-center gap-3">
+            <div class="flex gap-2 justify-center mb-2">
+              <input type="text" maxlength="1" class="otp-input w-10 h-12 text-2xl text-center border rounded" required>
+              <input type="text" maxlength="1" class="otp-input w-10 h-12 text-2xl text-center border rounded" required>
+              <input type="text" maxlength="1" class="otp-input w-10 h-12 text-2xl text-center border rounded" required>
+              <input type="text" maxlength="1" class="otp-input w-10 h-12 text-2xl text-center border rounded" required>
+              <input type="text" maxlength="1" class="otp-input w-10 h-12 text-2xl text-center border rounded" required>
+              <input type="text" maxlength="1" class="otp-input w-10 h-12 text-2xl text-center border rounded" required>
+            </div>
+            <button type="submit" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2">Submit</button>
+            <div class="text-sm text-gray-500 mt-2">Didn't receive code? <a href="#" id="resend-otp" class="text-purple-500 underline">Resend code</a></div>
+          </form>
+        `;
+        // OTP input auto-focus
+        const otpInputs = forgotFields.querySelectorAll('.otp-input');
+        otpInputs.forEach((input, idx) => {
+          input.addEventListener('input', function() {
+            if(this.value.length === 1 && idx < otpInputs.length - 1) {
+              otpInputs[idx+1].focus();
+            }
+          });
+          input.addEventListener('keydown', function(e) {
+            if(e.key === 'Backspace' && !this.value && idx > 0) {
+              otpInputs[idx-1].focus();
+            }
+          });
+        });
+        // OTP form submit
+        forgotFields.querySelector('#otp-form').onsubmit = function(e) {
+          e.preventDefault();
+          showLogin();
+        };
+        // Resend code
+        forgotFields.querySelector('#resend-otp').onclick = function(e) {
+          e.preventDefault();
+          // Optionally show a message or re-run the OTP UI
+          // For now, just clear the OTP inputs
+          otpInputs.forEach(input => input.value = '');
+          otpInputs[0].focus();
+        };
+      };
+    }
+    // ... existing code ...
+    // In setLanguageUI, after updating innerHTML for signup link, call attachSignupLinkHandler();
   });
 })();
   </script>
