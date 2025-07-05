@@ -175,7 +175,7 @@
   <!-- Login Card -->
   <div id="main-card" class="flex w-full max-w-4xl rounded-3xl bg-white overflow-hidden mt-8 items-stretch min-h-[320px] h-auto md:h-[420px] lg:h-[480px] xl:h-[520px] z-[100]">
     <!-- Login Left -->
-    <div class="flex-1 p-8 flex flex-col justify-center h-full min-w-[420px] md:min-w-[480px]">
+    <div id="login-left" class="flex-1 p-8 flex flex-col justify-center h-full min-w-[420px] md:min-w-[480px]">
       <div class="flex items-center mb-2 justify-between">
         <span class="inline-block w-8 h-4 bg-purple-200 rounded-full mr-2"></span>
         <h2 class="text-2xl font-bold" id="login-heading">Log In</h2>
@@ -190,15 +190,26 @@
           <div id="login-fields">
           <div class="mb-2 relative">
               <label class="block mb-1 font-medium" for="email">Email</label>
-              <input class="w-full px-3 py-2 border rounded-md" type="email" id="email" name="email" placeholder="Enter your email" required>
+              <input class="w-full px-3 py-2 border rounded-md" type="email" id="email" name="email" placeholder="Enter your email">
             </div>
           <div class="mb-2 relative">
               <label class="block mb-1 font-medium" for="password">Password</label>
-            <input class="w-full px-3 py-2 border rounded-md pr-10" type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input class="w-full px-3 py-2 border rounded-md pr-10" type="password" id="password" name="password" placeholder="Enter your password">
             <span class="absolute right-3 top-9 text-gray-400 cursor-pointer text-lg" onclick="togglePassword()"><i class="fa-regular fa-eye" id="eyeIcon"></i></span>
             </div>
-            <a href="#" class="text-purple-500 text-sm mb-2 inline-block" id="forgot-link">forgot password?</a>
-            <button type="submit" id="login-btn" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2" disabled>Log in</button>
+            <div class="flex items-center justify-between mb-2">
+              <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" id="remember-me" class="accent-purple-500">
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="text-purple-500 text-sm inline-block" id="forgot-link">forgot password?</a>
+            </div>
+            <button type="submit" id="login-btn" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed" style="transition: background 0.2s, color 0.2s;" disabled>Log in</button>
+            <div id="last-login-info" class="text-xs text-gray-500 text-center mb-2"></div>
+            <div id="welcome-message" class="hidden text-center text-lg font-bold text-purple-700 my-6"></div>
+            <div id="logout-row" class="hidden text-center my-4">
+              <button id="logout-btn" class="px-6 py-2 bg-gray-200 text-purple-700 rounded font-semibold shadow hover:bg-gray-300 transition">Log out</button>
+            </div>
             <div class="grid grid-cols-3 gap-2 mb-2 w-full mx-auto" style="grid-template-columns: repeat(3, 1fr);">
               <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-red-500 text-sm"><i class="fab fa-google"></i> Google</button>
               <button type="button" class="border rounded-md py-2 w-32 mx-auto flex items-center justify-center gap-2 text-blue-600 text-sm"><i class="fab fa-facebook-f"></i> Facebook</button>
@@ -211,7 +222,7 @@
           <div id="forgot-fields" style="display:none;">
             <div class="mb-2">
               <label class="block mb-1 font-medium" for="forgot-email">Email</label>
-              <input class="w-full px-3 py-2 border rounded-md" type="email" id="forgot-email" name="forgot-email" placeholder="Enter your email" required>
+              <input class="w-full px-3 py-2 border rounded-md" type="email" id="forgot-email" name="forgot-email" placeholder="Enter your email">
             </div>
             <button type="submit" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2">Send Reset Link</button>
             <a href="#" class="text-purple-500 text-sm mb-2 inline-block" id="back-to-login">Back to Login</a>
@@ -219,19 +230,19 @@
           <div id="signup-fields" style="display:none;">
             <div class="mb-2">
               <label class="block mb-1 font-medium" for="signup-name">Name</label>
-              <input class="w-full px-3 py-2 border rounded-md" type="text" id="signup-name" name="signup-name" placeholder="Enter your name" required>
+              <input class="w-full px-3 py-2 border rounded-md" type="text" id="signup-name" name="signup-name" placeholder="Enter your name">
             </div>
             <div class="mb-2">
               <label class="block mb-1 font-medium" for="signup-email">Email</label>
-              <input class="w-full px-3 py-2 border rounded-md" type="email" id="signup-email" name="signup-email" placeholder="Enter your email" required>
+              <input class="w-full px-3 py-2 border rounded-md" type="email" id="signup-email" name="signup-email" placeholder="Enter your email">
             </div>
             <div class="mb-2">
               <label class="block mb-1 font-medium" for="signup-password">Password</label>
-              <input class="w-full px-3 py-2 border rounded-md" type="password" id="signup-password" name="signup-password" placeholder="Enter your password" required>
+              <input class="w-full px-3 py-2 border rounded-md" type="password" id="signup-password" name="signup-password" placeholder="Enter your password">
             </div>
             <div class="mb-2">
               <label class="block mb-1 font-medium" for="signup-confirm">Confirm Password</label>
-              <input class="w-full px-3 py-2 border rounded-md" type="password" id="signup-confirm" name="signup-confirm" placeholder="Confirm your password" required>
+              <input class="w-full px-3 py-2 border rounded-md" type="password" id="signup-confirm" name="signup-confirm" placeholder="Confirm your password">
             </div>
             <button type="submit" id="signup-btn" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2" disabled>Sign Up</button>
             <a href="#" class="text-purple-500 text-sm mb-2 inline-block" id="back-to-login-signup">Back to Login</a>
@@ -305,18 +316,26 @@
       <button id="lang-modal-close" class="absolute top-3 right-4 text-2xl text-purple-500 hover:text-purple-700 transition">&times;</button>
       <div class="text-lg font-bold text-gray-800 mb-4">Your language</div>
       <select id="lang-select" class="w-full border border-gray-300 rounded px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-400">
-        <option value="en">English</option>
-        <option value="nl">Nederlands</option>
-        <option value="fr">français</option>
-        <option value="de">Deutsch</option>
-        <option value="it">italiano</option>
-        <option value="es">español</option>
-        <option value="hi">हिन्दी</option>
-        <option value="bn">বাংলা</option>
-        <option value="te">తెలుగు</option>
-        <option value="mr">मराठी</option>
-        <option value="ml">മലയാളം</option>
-        <option value="ar">العربية</option>
+        <option value="">Select a language...</option>
+        <option value="en">English (English)</option>
+        <option value="ar">Arabic (العربية)</option>
+        <option value="bn">Bengali (বাংলা)</option>
+        <option value="zh">Chinese (中文)</option>
+        <option value="ja">Japanese (日本語)</option>
+        <option value="ko">Korean (한국어)</option>
+        <option value="ru">Russian (Русский)</option>
+        <option value="el">Greek (Ελληνικά)</option>
+        <option value="he">Hebrew (עברית)</option>
+        <option value="th">Thai (ไทย)</option>
+        <option value="nl">Dutch (Nederlands)</option>
+        <option value="fr">French (français)</option>
+        <option value="de">German (Deutsch)</option>
+        <option value="hi">Hindi (हिन्दी)</option>
+        <option value="it">Italian (italiano)</option>
+        <option value="ml">Malayalam (മലയാളം)</option>
+        <option value="mr">Marathi (मराठी)</option>
+        <option value="es">Spanish (español)</option>
+        <option value="te">Telugu (తెలుగు)</option>
       </select>
       <button id="lang-apply" class="w-full mt-2 px-4 py-2 bg-purple-500 text-white rounded font-semibold shadow hover:bg-purple-600 transition">Apply</button>
     </div>
@@ -1294,7 +1313,7 @@
       window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
       setLanguageUI(langSelect.value);
       updateHeaderBtnGroupAlignment();
-      langModal.classList.add('hidden'); // Dismiss the language modal
+      langModal.classList.add('hidden');
     });
 
     // --- Language translations ---
@@ -1350,6 +1369,139 @@
       },
       ar: {
         login: 'تسجيل الدخول', subheading: 'مرحبًا بعودتك! الرجاء إدخال بياناتك', forgot: 'هل نسيت كلمة المرور؟', loginBtn: 'تسجيل الدخول', signupBtn: 'إنشاء حساب', signupLink: 'ليس لديك حساب؟', signup: 'إنشاء حساب', backToLogin: 'العودة لتسجيل الدخول', sendReset: 'إرسال رابط إعادة التعيين', name: 'الاسم', email: 'البريد الإلكتروني', password: 'كلمة المرور', confirm: 'تأكيد كلمة المرور', info: 'معلومات', settings: 'الإعدادات', language: 'لغتك', apply: 'تطبيق',
+      },
+      zh: {
+        login: '登录',
+        subheading: '欢迎回来！请输入您的信息',
+        signup: '注册',
+        signupLink: '没有账号？',
+        forgot: '忘记密码？',
+        loginBtn: '登录',
+        signupBtn: '注册',
+        backToLogin: '返回登录',
+        sendReset: '发送重置链接',
+        name: '姓名',
+        email: '电子邮件',
+        password: '密码',
+        confirm: '确认密码',
+        info: '信息',
+        settings: '设置',
+        language: '选择语言',
+        apply: '应用',
+      },
+      ja: {
+        login: 'ログイン',
+        subheading: 'お帰りなさい！詳細を入力してください',
+        signup: 'サインアップ',
+        signupLink: 'アカウントをお持ちでないですか？',
+        forgot: 'パスワードをお忘れですか？',
+        loginBtn: 'ログイン',
+        signupBtn: 'サインアップ',
+        backToLogin: 'ログインに戻る',
+        sendReset: 'リセットリンクを送信',
+        name: '名前',
+        email: 'メール',
+        password: 'パスワード',
+        confirm: 'パスワード確認',
+        info: '情報',
+        settings: '設定',
+        language: '言語を選択',
+        apply: '適用',
+      },
+      ko: {
+        login: '로그인',
+        subheading: '다시 오신 것을 환영합니다! 정보를 입력하세요',
+        signup: '가입하기',
+        signupLink: '계정이 없으신가요?',
+        forgot: '비밀번호를 잊으셨나요?',
+        loginBtn: '로그인',
+        signupBtn: '가입하기',
+        backToLogin: '로그인으로 돌아가기',
+        sendReset: '재설정 링크 보내기',
+        name: '이름',
+        email: '이메일',
+        password: '비밀번호',
+        confirm: '비밀번호 확인',
+        info: '정보',
+        settings: '설정',
+        language: '언어 선택',
+        apply: '적용',
+      },
+      ru: {
+        login: 'Войти',
+        subheading: 'С возвращением! Пожалуйста, введите свои данные',
+        signup: 'Зарегистрироваться',
+        signupLink: 'Нет аккаунта?',
+        forgot: 'Забыли пароль?',
+        loginBtn: 'Войти',
+        signupBtn: 'Зарегистрироваться',
+        backToLogin: 'Назад к входу',
+        sendReset: 'Отправить ссылку',
+        name: 'Имя',
+        email: 'Эл. почта',
+        password: 'Пароль',
+        confirm: 'Подтвердите пароль',
+        info: 'Инфо',
+        settings: 'Настройки',
+        language: 'Выберите язык',
+        apply: 'Применить',
+      },
+      el: {
+        login: 'Σύνδεση',
+        subheading: 'Καλώς ήρθατε! Παρακαλώ εισάγετε τα στοιχεία σας',
+        signup: 'Εγγραφή',
+        signupLink: 'Δεν έχετε λογαριασμό;',
+        forgot: 'Ξεχάσατε τον κωδικό;',
+        loginBtn: 'Σύνδεση',
+        signupBtn: 'Εγγραφή',
+        backToLogin: 'Επιστροφή στη σύνδεση',
+        sendReset: 'Αποστολή συνδέσμου',
+        name: 'Όνομα',
+        email: 'Email',
+        password: 'Κωδικός',
+        confirm: 'Επιβεβαίωση κωδικού',
+        info: 'Πληροφορίες',
+        settings: 'Ρυθμίσεις',
+        language: 'Επιλογή γλώσσας',
+        apply: 'Εφαρμογή',
+      },
+      he: {
+        login: 'התחברות',
+        subheading: 'ברוך שובך! אנא הזן את פרטיך',
+        signup: 'הרשמה',
+        signupLink: 'אין לך חשבון?',
+        forgot: 'שכחת סיסמה?',
+        loginBtn: 'התחבר',
+        signupBtn: 'הרשמה',
+        backToLogin: 'חזרה להתחברות',
+        sendReset: 'שלח קישור איפוס',
+        name: 'שם',
+        email: 'אימייל',
+        password: 'סיסמה',
+        confirm: 'אישור סיסמה',
+        info: 'מידע',
+        settings: 'הגדרות',
+        language: 'בחר שפה',
+        apply: 'החל',
+      },
+      th: {
+        login: 'เข้าสู่ระบบ',
+        subheading: 'ยินดีต้อนรับกลับ! กรุณากรอกรายละเอียดของคุณ',
+        signup: 'สมัครสมาชิก',
+        signupLink: 'ยังไม่มีบัญชี?',
+        forgot: 'ลืมรหัสผ่าน?',
+        loginBtn: 'เข้าสู่ระบบ',
+        signupBtn: 'สมัครสมาชิก',
+        backToLogin: 'กลับไปเข้าสู่ระบบ',
+        sendReset: 'ส่งลิงก์รีเซ็ต',
+        name: 'ชื่อ',
+        email: 'อีเมล',
+        password: 'รหัสผ่าน',
+        confirm: 'ยืนยันรหัสผ่าน',
+        info: 'ข้อมูล',
+        settings: 'การตั้งค่า',
+        language: 'เลือกภาษา',
+        apply: 'ใช้',
       },
     };
     function setLanguageUI(lang) {
@@ -1411,6 +1563,7 @@
       // Set direction for RTL languages
       const rtlLangs = ['ar', 'he', 'fa', 'ur'];
       document.body.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
+      attachSignupLinkHandler(); // Ensure Sign Up link handler is always attached after language change
     }
     // Set language on load
     const urlParams = new URLSearchParams(window.location.search);
@@ -1436,6 +1589,7 @@
       document.getElementById('login-subtitle').innerText = translations[lang]?.subheading || 'Welcome back! Please enter your details';
       // Set required only on visible fields
       setRequiredFields(['email','password'], ['forgot-email','signup-name','signup-email','signup-password','signup-confirm']);
+      attachSignupLinkHandler(); // Ensure Sign Up link handler is always attached
     }
     function showForgot() {
       document.getElementById('login-fields').style.display = 'none';
@@ -1501,9 +1655,12 @@
         </div>
       `;
       document.body.appendChild(popup);
-      popup.querySelector('#social-popup-close').onclick = function() { popup.remove(); };
-      popup.querySelector('.bg-gray-100').onclick = function() { popup.remove(); };
-      popup.querySelector('.'+p.btn.replace(/ /g,'.')).onclick = function() { popup.remove(); };
+      const closeBtn = popup.querySelector('#social-popup-close');
+      if (closeBtn) closeBtn.onclick = function() { popup.remove(); };
+      const cancelBtn = popup.querySelector('.bg-gray-100');
+      if (cancelBtn) cancelBtn.onclick = function() { popup.remove(); };
+      const brandBtn = popup.querySelector('.' + p.btn.replace(/ /g, '.'));
+      if (brandBtn) brandBtn.onclick = function() { popup.remove(); };
     }
     // Attach to all social buttons
     document.querySelectorAll('button').forEach(btn => {
@@ -1598,6 +1755,157 @@
     }
     // ... existing code ...
     // In setLanguageUI, after updating innerHTML for signup link, call attachSignupLinkHandler();
+
+    const languageOptions = [
+      { value: 'en', label: 'English (English)' },
+      { value: 'ar', label: 'Arabic (العربية)' },
+      { value: 'bn', label: 'Bengali (বাংলা)' },
+      { value: 'zh', label: 'Chinese (中文)' },
+      { value: 'ja', label: 'Japanese (日本語)' },
+      { value: 'ko', label: 'Korean (한국어)' },
+      { value: 'ru', label: 'Russian (Русский)' },
+      { value: 'el', label: 'Greek (Ελληνικά)' },
+      { value: 'he', label: 'Hebrew (עברית)' },
+      { value: 'th', label: 'Thai (ไทย)' },
+      { value: 'nl', label: 'Dutch (Nederlands)' },
+      { value: 'fr', label: 'French (français)' },
+      { value: 'de', label: 'German (Deutsch)' },
+      { value: 'hi', label: 'Hindi (हिन्दी)' },
+      { value: 'it', label: 'Italian (italiano)' },
+      { value: 'ml', label: 'Malayalam (മലയാളം)' },
+      { value: 'mr', label: 'Marathi (मराठी)' },
+      { value: 'es', label: 'Spanish (español)' },
+      { value: 'te', label: 'Telugu (తెలుగు)' }
+    ].sort((a, b) => a.label.localeCompare(b.label));
+
+    // --- Enable login button only when both Email and Password are entered ---
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.getElementById('login-btn');
+    const lastLoginInfo = document.getElementById('last-login-info');
+    function updateLoginBtnState() {
+      if (emailInput.value.trim() && passwordInput.value.trim()) {
+        loginBtn.disabled = false;
+      } else {
+        loginBtn.disabled = true;
+      }
+    }
+    emailInput.addEventListener('input', updateLoginBtnState);
+    passwordInput.addEventListener('input', updateLoginBtnState);
+    // Initial state
+    updateLoginBtnState();
+
+    // --- Last Login Info ---
+    function showLastLogin() {
+      const lastLogin = localStorage.getItem('lastLogin');
+      if (lastLogin && lastLoginInfo) {
+        lastLoginInfo.textContent = `Last login: ${lastLogin}`;
+      } else if (lastLoginInfo) {
+        lastLoginInfo.textContent = '';
+      }
+    }
+    showLastLogin();
+    // On login form submit, update last login info
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+      // Utility: Remove 'required' from all hidden, disabled, or non-focusable fields before submit (robust)
+      function removeRequiredFromHiddenFields(form) {
+        form.querySelectorAll('[required]').forEach(el => {
+          const isHidden = el.offsetParent === null || window.getComputedStyle(el).display === 'none' || el.closest('[style*="display: none"]');
+          const isDisabled = el.disabled;
+          const isNotFocusable = el.tabIndex === -1;
+          if (isHidden || isDisabled || isNotFocusable) {
+            el.removeAttribute('required');
+          }
+        });
+      }
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Always prevent real submission
+        removeRequiredFromHiddenFields(loginForm);
+        if (loginBtn.disabled) { return false; }
+        const now = new Date();
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const formatted = now.toLocaleString() + ' (' + tz + ')';
+        localStorage.setItem('lastLogin', formatted);
+        // SPA: Replace left panel with welcome and logout
+        const mainCardLeft = document.getElementById('login-left');
+        if (mainCardLeft) {
+          const email = emailInput.value.trim();
+          mainCardLeft.innerHTML = `
+            <div class='flex flex-col justify-center items-center h-full w-full p-8'>
+              <div class='text-2xl font-bold text-purple-700 mb-2'>Welcome back, <span class='font-extrabold'>${email}</span>!</div>
+              <div class='text-xs text-gray-500 mb-6'>Last login: ${formatted}</div>
+              <button id='logout-btn' class='px-6 py-2 bg-gray-200 text-purple-700 rounded font-semibold shadow hover:bg-gray-300 transition'>Log out</button>
+            </div>
+          `;
+          // Attach logout handler
+          const logoutBtn = mainCardLeft.querySelector('#logout-btn');
+          if (logoutBtn) {
+            logoutBtn.onclick = function() {
+              window.location.reload();
+            };
+          }
+        }
+      });
+    }
+    // ... existing code ...
+
+    // --- Remember Me functionality ---
+    const rememberMe = document.getElementById('remember-me');
+    // On page load, pre-fill email if remembered
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      emailInput.value = rememberedEmail;
+      if (rememberMe) rememberMe.checked = true;
+    }
+    // Save or remove email on checkbox/input change
+    function updateRememberMe() {
+      if (rememberMe && rememberMe.checked) {
+        localStorage.setItem('rememberedEmail', emailInput.value);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+    }
+    if (rememberMe) {
+      rememberMe.addEventListener('change', updateRememberMe);
+      emailInput.addEventListener('input', function() {
+        if (rememberMe.checked) {
+          localStorage.setItem('rememberedEmail', emailInput.value);
+        }
+      });
+    }
+    // Fallback: visually grey out login button if disabled (for non-Tailwind environments)
+    function updateLoginBtnStyle() {
+      if (loginBtn.disabled) {
+        loginBtn.style.background = '#e5e7eb'; // gray-200
+        loginBtn.style.color = '#9ca3af'; // gray-400
+        loginBtn.style.cursor = 'not-allowed';
+      } else {
+        loginBtn.style.background = '';
+        loginBtn.style.color = '';
+        loginBtn.style.cursor = '';
+      }
+    }
+    emailInput.addEventListener('input', updateLoginBtnStyle);
+    passwordInput.addEventListener('input', updateLoginBtnStyle);
+    updateLoginBtnStyle();
+
+    // Log out button logic
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.onclick = function() {
+        // Hide welcome and logout, reset form
+        document.getElementById('welcome-message').classList.add('hidden');
+        document.getElementById('logout-row').classList.add('hidden');
+        loginForm.reset();
+        loginForm.style.display = '';
+        // Optionally clear error message
+        const errorDiv = document.getElementById('form-error-msg');
+        if (errorDiv) errorDiv.textContent = '';
+      };
+    }
+
+    const mainCardLeft = document.querySelector('#main-card .flex-1');
   });
 })();
   </script>
