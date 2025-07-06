@@ -1,6 +1,6 @@
 # Visual Regression Tester
 
-A playground for visual regression testing—simulate UI states, edge cases, and accessibility scenarios for login flows. Ideal for automated/manual testing, QA, and design review.
+A playground for visual regression testing—simulate UI states, edge cases, and accessibility scenarios for login flows. Ideal for automated/manual testing, QA, design review, and evaluating visual regression tools.
 
 ---
 
@@ -10,10 +10,10 @@ A playground for visual regression testing—simulate UI states, edge cases, and
   Seamless login/logout flow with instant panel updates—no reloads.
 
 - **About Us Overlay:**  
-  Modal with infinite scroll, lazy loading, and accordion info about visual testing.
+  Modern, responsive card with a feature table and a visually rich comparison of popular visual regression tools (Applitools, Percy, BackstopJS, etc.). Fully themed for light and dark mode. No infinite scroll—content is curated and always readable.
 
 - **Visual Regression Parameters Panel:**  
-  Toggle UI states (typography, layout, effects, form, image, Canvas/WebGL, etc.) from a right-side panel. All changes are instant and reflected in the URL for reproducibility.
+  All parameters are grouped in a right-side accordion panel. Toggle UI states (typography, layout, effects, form, image, Canvas/WebGL, etc.) with instant UI and URL sync for reproducibility.
 
 - **Canvas/WebGL Demo:**  
   Replace the right-side image with a live 3D WebGL cube for advanced rendering tests.
@@ -24,7 +24,7 @@ A playground for visual regression testing—simulate UI states, edge cases, and
   English, Arabic, Bengali, Chinese, Japanese, Korean, Russian, Greek, Hebrew, Thai, Dutch, French, German, Hindi, Italian, Malayalam, Marathi, Spanish, Telugu
 
 - **Dark Mode:**  
-  Header sun/moon toggle and URL param support.
+  Header sun/moon toggle and URL param support. All About Us and tool cards are fully readable and themed for both light and dark mode.
 
 - **Accessibility & Responsiveness:**  
   RTL support, keyboard/screen reader friendly, fully responsive.
@@ -38,13 +38,19 @@ A playground for visual regression testing—simulate UI states, edge cases, and
 - **Image & Form Edge Cases:**  
   Blurred, grayscale, high-contrast, hidden, broken, or distorted images; robust form validation; custom subheadings.
 
+- **Alternate Button Style:**  
+  Visually distinct button style toggle that does not affect button position or layout.
+
+- **Visual Regression Tools Comparison:**  
+  Dedicated section in About Us comparing Applitools Eyes, Percy, BackstopJS, Katalon Studio, Kobiton, Chromatic, PhantomCSS, Galen Framework, AyeSpy, SikuliX, and more.
+
 ---
 
 ## 🎛️ Visual Regression Parameters
 
 Open the panel (cog icon in header) to toggle features for robust visual testing. All options update the UI and URL in sync.
 
-**Tabs & Options:**
+**Accordion Sections & Options:**
 
 - **Typography** (Font, Font Size, Bold, Font Colour, Fallback Font, Subheading Style)
 - **Layout** (Offset Vertical, Offset Horizontal, Border, No Shadow, Skeleton Loader, Grid, Ruler)
@@ -61,7 +67,7 @@ Open the panel (cog icon in header) to toggle features for robust visual testing
 - Toggle parameters for instant UI changes and regression scenarios.
 - Switch languages and test RTL/Unicode.
 - Simulate login, signup, forgot password, and social logins.
-- Open About Us overlay for infinite scroll and visual testing info.
+- Open About Us overlay for a feature table and visual regression tools comparison.
 
 ---
 
