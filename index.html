@@ -102,7 +102,7 @@
       overflow-y: auto;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1024px;
       margin: 0 auto;
     }
     /* Orientation-specific styles */
@@ -157,9 +157,61 @@
     /* Default layout applies */
     .high-contrast-img { filter: contrast(2) brightness(1.2) !important; }
     .distorted-img { filter: none !important; }
+    body.dark footer {
+      background-color: #18181b !important;
+      color: #e5e7eb !important;
+    }
   </style>
 </head>
-<body class="bg-purple-100 min-h-screen flex flex-col justify-center items-center">
+<body class="bg-purple-100 min-h-screen flex flex-col justify-center items-center dark">
+  <!-- Skeleton Loader Overlay -->
+  <div id="skeleton-loader" style="display:none; position:fixed; inset:0; z-index:5000; background:rgba(245,240,255,0.98);">
+    <div class="flex flex-col min-h-screen w-full h-full">
+      <div class="h-20 flex items-center justify-center w-full animate-pulse">
+        <div class="h-8 w-64 bg-purple-200 rounded-xl mx-auto"></div>
+      </div>
+      <div class="flex flex-1 items-center justify-center w-full">
+        <div class="flex w-full max-w-4xl rounded-3xl bg-white/80 overflow-hidden shadow-2xl mt-8 items-stretch min-h-[320px] h-auto md:h-[420px] lg:h-[480px] xl:h-[520px]">
+          <div class="flex-1 p-8 flex flex-col justify-center h-full min-w-[420px] md:min-w-[480px] gap-4 animate-pulse">
+            <div class="flex items-center mb-2 gap-4">
+              <div class="w-8 h-4 bg-purple-200 rounded-full"></div>
+              <div class="h-8 w-32 bg-gray-200 rounded"></div>
+              <div class="flex gap-2">
+                <div class="w-8 h-8 bg-purple-100 rounded-full"></div>
+                <div class="w-8 h-8 bg-purple-100 rounded-full"></div>
+                <div class="w-8 h-8 bg-purple-100 rounded-full"></div>
+              </div>
+            </div>
+            <div class="h-4 w-48 bg-gray-200 rounded mb-4"></div>
+            <div class="h-12 w-full bg-gray-200 rounded mb-2"></div>
+            <div class="h-12 w-full bg-gray-200 rounded mb-2"></div>
+            <div class="h-6 w-1/2 bg-gray-200 rounded mb-2"></div>
+            <div class="h-10 w-full bg-purple-200 rounded mb-2"></div>
+            <div class="h-4 w-32 bg-gray-100 rounded mx-auto mb-2"></div>
+            <div class="grid grid-cols-3 gap-2 w-full mx-auto mt-2">
+              <div class="h-10 w-24 bg-gray-200 rounded"></div>
+              <div class="h-10 w-24 bg-gray-200 rounded"></div>
+              <div class="h-10 w-24 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+          <div class="flex-1 bg-gradient-to-br from-purple-200 to-purple-400 flex items-center justify-center relative min-w-[220px] h-full animate-pulse">
+            <div class="w-64 h-64 bg-gray-300 rounded-3xl"></div>
+          </div>
+        </div>
+      </div>
+      <div class="h-16 w-full flex items-center justify-center animate-pulse">
+        <div class="h-6 w-96 bg-purple-200 rounded-xl"></div>
+      </div>
+    </div>
+    <style>
+      @keyframes skeletonShimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+      #skeleton-loader .bg-gray-200, #skeleton-loader .bg-purple-200, #skeleton-loader .bg-gray-100, #skeleton-loader .bg-gray-300 {
+        background: linear-gradient(90deg, #ece6fa 25%, #f3f0fa 50%, #ece6fa 75%);
+        background-size: 400px 100%;
+        animation: skeletonShimmer 1.2s infinite linear;
+      }
+    </style>
+  </div>
   <div id="static-banner" style="display:none;" class="fixed top-0 left-0 w-full bg-purple-700 text-gray-100 text-center py-3 px-4 font-semibold text-base shadow-xl z-[3000]" role="alert">
     <span class="font-bold">Reminder:</span> Visual regression detects unintended UI changes between software versions.
   </div>
@@ -175,13 +227,15 @@
   <!-- Login Card -->
   <div id="main-card" class="flex w-full max-w-4xl rounded-3xl bg-white overflow-hidden mt-8 items-stretch min-h-[320px] h-auto md:h-[420px] lg:h-[480px] xl:h-[520px] z-[100]">
     <!-- Login Left -->
-    <div id="login-left" class="flex-1 p-8 flex flex-col justify-center h-full min-w-[420px] md:min-w-[480px]">
+    <div id="login-left" class="flex-1 p-8 flex flex-col justify-center h-full min-w-[220px] w-1/2">
       <div class="flex items-center mb-2 justify-between">
         <span class="inline-block w-8 h-4 bg-purple-200 rounded-full mr-2"></span>
         <h2 class="text-2xl font-bold" id="login-heading">Log In</h2>
         <div id="header-btn-group" class="flex gap-2 mb-2 transition-all duration-300">
-          <button class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" id="open-side-panel-btn" title="Info"><i class="fa-solid fa-info"></i></button>
+          <button class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" id="open-side-panel-btn" title="Info"><i class="fa-solid fa-wrench"></i></button>
+          <button class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" id="about-btn" title="About Us"><i class="fa-solid fa-info"></i></button>
           <button id="lang-icon" class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Switch Language"><i class="fa-solid fa-globe"></i></button>
+          <button id="theme-toggle" class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Toggle Dark/Light Mode"></button>
           <button id="help-icon" class="flex items-center justify-center w-8 h-8 rounded-full text-purple-400 text-lg shadow cursor-pointer hover:bg-purple-100 transition" title="Settings"><i class="fa-solid fa-cog"></i></button>
         </div>
       </div>
@@ -205,7 +259,6 @@
               <a href="#" class="text-purple-500 text-sm inline-block" id="forgot-link">forgot password?</a>
             </div>
             <button type="submit" id="login-btn" class="w-full py-2 bg-purple-500 text-white rounded-md font-semibold hover:bg-purple-600 transition mb-2 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed" style="transition: background 0.2s, color 0.2s;" disabled>Log in</button>
-            <div id="last-login-info" class="text-xs text-gray-500 text-center mb-2"></div>
             <div id="welcome-message" class="hidden text-center text-lg font-bold text-purple-700 my-6"></div>
             <div id="logout-row" class="hidden text-center my-4">
               <button id="logout-btn" class="px-6 py-2 bg-gray-200 text-purple-700 rounded font-semibold shadow hover:bg-gray-300 transition">Log out</button>
@@ -248,11 +301,13 @@
             <a href="#" class="text-purple-500 text-sm mb-2 inline-block" id="back-to-login-signup">Back to Login</a>
           </div>
         </form>
-        <div class="text-center text-gray-400 mt-4" id="signup-link-row">Don't have account?<a href="#" class="text-purple-500 ml-1" id="show-signup">Sign Up</a></div>
-        <div id="countdown-timer" class="hidden text-center mt-2 text-purple-500 font-semibold"></div>
+        <div class="flex items-center justify-between mt-4 w-full">
+          <div id="countdown-timer" class="hidden text-left text-purple-500 font-semibold"></div>
+          <div id="signup-link-row" class="text-right text-gray-400">Don't have account?<a href="#" class="text-purple-500 ml-1" id="show-signup">Sign Up</a></div>
+        </div>
       </div>
     <!-- Login Right -->
-    <div id="login-right" class="flex-1 bg-gradient-to-br from-purple-200 to-purple-400 flex items-stretch justify-center relative min-w-[220px] h-full">
+    <div id="login-right" class="flex-1 bg-gradient-to-br from-purple-200 to-purple-400 flex items-stretch justify-center relative min-w-[220px] w-1/2 h-full">
         <img id="slider-img" class="w-full h-full object-cover rounded-r-3xl" src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=540&q=80" alt="Login Visual" />
       <div id="slider-dots" class="absolute left-1/2 bottom-4 transform -translate-x-1/2 flex gap-2 bg-black bg-opacity-10 px-4 py-1 rounded-xl"></div>
     </div>
@@ -307,9 +362,25 @@
   </div>
   <!-- Overlay for panels -->
   <div id="panel-overlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden transition-opacity duration-300"></div>
-  <footer class="fixed bottom-0 left-0 w-full bg-purple-400 text-white text-center py-3 px-4 font-semibold text-base shadow-xl z-[3000]">
-    Creator. Builder. Curious? Let's talk &rarr; <a href="https://linkedin.com/in/vijopv83" target="_blank" class="underline text-white font-bold">linkedin.com/in/vijopv83</a>
+  <footer class="fixed bottom-0 left-0 w-full text-white text-center py-3 px-4 font-semibold text-base shadow-xl z-[3000] flex justify-between items-center flex-wrap bg-purple-400 dark:bg-gray-900 dark:text-gray-200">
+    <span class="footer-left">
+      <a href="https://github.com/vijopv83/VisualRegressionTester" 
+         target="_blank" 
+         class="underline text-white font-bold">
+         GitHub
+      </a>: ⭐ the repo, open an issue, or submit a pull request!
+    </span>
+    <span class="footer-right">
+      Creator. Builder. Curious? Let's talk → 
+      <a href="https://www.linkedin.com/in/vijopv83" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="underline text-white font-bold">
+         linkedin.com/in/vijopv83
+      </a>
+    </span>
   </footer>
+  
   <!-- Language Modal -->
   <div id="lang-modal" class="hidden fixed inset-0 flex items-center justify-center z-[3000] bg-black bg-opacity-40">
     <div class="bg-white p-8 rounded-2xl shadow-2xl w-[90vw] max-w-[340px] text-center relative flex flex-col items-center border border-gray-200">
@@ -339,6 +410,13 @@
       </select>
       <button id="lang-apply" class="w-full mt-2 px-4 py-2 bg-purple-500 text-white rounded font-semibold shadow hover:bg-purple-600 transition">Apply</button>
     </div>
+  </div>
+  <!-- About Us Infinite Scroll Overlay -->
+  <div id="about-overlay" class="hidden fixed inset-0 bg-white bg-opacity-95 z-[9999] flex flex-col items-center justify-start" style="transition:opacity 0.3s; min-height:100vh;">
+    <button id="about-close" class="absolute top-4 right-8 text-3xl text-purple-500 hover:text-purple-700 font-bold">&times;</button>
+    <h2 class="text-3xl font-extrabold text-purple-700 mt-12 mb-6">About Us</h2>
+    <div id="about-content" class="w-full max-w-2xl flex flex-col items-center px-4 pb-16 flex-1 overflow-y-auto" style="min-height:0; width:100%;"></div>
+    <div id="about-loading" class="my-6 text-purple-400 text-lg hidden"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>
   </div>
   <script>
 (function() {
@@ -628,12 +706,11 @@
     const PARAM_SECTIONS = [
       {title: 'Typography', keys: ['font', 'fontSize', 'fontColour', 'fontBold', 'fallbackFont', 'subheadingStyle']},
       {title: 'Layout', keys: ['offsetVertical', 'offsetHorizontal', 'border', 'shadow', 'rtl', 'grid', 'ruler']},
-      {title: 'Theme & Effects', keys: ['theme', 'invert', 'anim', 'banner', 'toast', 'popup', 'cookie', 'floatingBox']},
+      {title: 'Effects', keys: ['invert', 'anim', 'banner', 'toast', 'popup', 'cookie', 'floatingBox']},
       {title: 'Form & UX', keys: ['hideForm', 'buttonStyle', 'hideSocial', 'timer', 'disableLogin', 'inputError', 'hideFooter']},
-      {title: 'Image', keys: ['blur', 'grayscale', 'overlay', 'highContrast', 'hideImage', 'slider', 'brokenImage', 'randomPixel', 'distortedImage']}
+      {title: 'Image', keys: ['blur', 'grayscale', 'overlay', 'highContrast', 'hideImage', 'slider', 'brokenImage', 'randomPixel', 'distortedImage', 'svgicons', 'canvas']}
     ];
     const PARAMS = [
-      {key:'theme', label:'Dark Theme', value:'on', type:'checkbox'},
       {key:'font', label:'Serif Font', value:'serif', type:'radio', group:'font'},
       {key:'font', label:'Sans Font', value:'sans', type:'radio', group:'font', default: true},
       {key:'font', label:'Mono Font', value:'mono', type:'radio', group:'font'},
@@ -676,6 +753,8 @@
       {key:'timer', label:'Show Countdown', value:'on', type:'checkbox'},
       {key:'floatingBox', label:'Show Floating Box', value:'on', type:'checkbox'},
       {key:'inputError', label:'Show Input Error', value:'on', type:'checkbox'},
+      {key:'svgicons', label:'Use SVG icons', value:'on', type:'checkbox'},
+      {key:'canvas', label:'Canvas/WebGL', value:'on', type:'checkbox'},
     ];
     let activeParamTab = 0;
     function getDefaultParams() {
@@ -1170,8 +1249,271 @@
       }
       // --- Image Effects ---
       const sliderImg = document.getElementById('slider-img');
+      // Canvas/WebGL logic
+      let canvas = document.getElementById('login-canvas');
+      const loginRight = document.getElementById('login-right');
+      if(params.canvas === 'on') {
+        if(sliderImg) sliderImg.style.display = 'none';
+        // Create canvas if not present
+        if(!canvas && loginRight) {
+          canvas = document.createElement('canvas');
+          canvas.id = 'login-canvas';
+          canvas.width = loginRight.offsetWidth || 400;
+          canvas.height = loginRight.offsetHeight || 320;
+          canvas.style.width = '100%';
+          canvas.style.height = '100%';
+          canvas.style.display = 'block';
+          canvas.style.borderRadius = '0 24px 24px 0';
+          canvas.style.position = 'absolute';
+          canvas.style.top = '0';
+          canvas.style.left = '0';
+          loginRight.appendChild(canvas);
+          // --- WebGL 3D Spinning Cube ---
+          function webglCube(canvas) {
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) { canvas.getContext('2d').fillText('WebGL not supported', 10, 50); return; }
+            // Vertex shader program
+            const vsSource = `
+              attribute vec4 aVertexPosition;
+              attribute vec4 aVertexColor;
+              uniform mat4 uModelViewMatrix;
+              uniform mat4 uProjectionMatrix;
+              varying lowp vec4 vColor;
+              void main(void) {
+                gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+                vColor = aVertexColor;
+              }
+            `;
+            // Fragment shader program
+            const fsSource = `
+              varying lowp vec4 vColor;
+              void main(void) {
+                gl_FragColor = vColor;
+              }
+            `;
+            function loadShader(type, source) {
+              const shader = gl.createShader(type);
+              gl.shaderSource(shader, source);
+              gl.compileShader(shader);
+              if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                gl.deleteShader(shader);
+                return null;
+              }
+              return shader;
+            }
+            const vertexShader = loadShader(gl.VERTEX_SHADER, vsSource);
+            const fragmentShader = loadShader(gl.FRAGMENT_SHADER, fsSource);
+            const shaderProgram = gl.createProgram();
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+            gl.linkProgram(shaderProgram);
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) return;
+            const programInfo = {
+              program: shaderProgram,
+              attribLocations: {
+                vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+                vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
+              },
+              uniformLocations: {
+                projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+                modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+              },
+            };
+            // Cube positions
+            const positions = [
+              // Front face
+              -1.0, -1.0,  1.0,
+               1.0, -1.0,  1.0,
+               1.0,  1.0,  1.0,
+              -1.0,  1.0,  1.0,
+              // Back face
+              -1.0, -1.0, -1.0,
+              -1.0,  1.0, -1.0,
+               1.0,  1.0, -1.0,
+               1.0, -1.0, -1.0,
+              // Top face
+              -1.0,  1.0, -1.0,
+              -1.0,  1.0,  1.0,
+               1.0,  1.0,  1.0,
+               1.0,  1.0, -1.0,
+              // Bottom face
+              -1.0, -1.0, -1.0,
+               1.0, -1.0, -1.0,
+               1.0, -1.0,  1.0,
+              -1.0, -1.0,  1.0,
+              // Right face
+               1.0, -1.0, -1.0,
+               1.0,  1.0, -1.0,
+               1.0,  1.0,  1.0,
+               1.0, -1.0,  1.0,
+              // Left face
+              -1.0, -1.0, -1.0,
+              -1.0, -1.0,  1.0,
+              -1.0,  1.0,  1.0,
+              -1.0,  1.0, -1.0,
+            ];
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+            // Colors for each face
+            const faceColors = [
+              [1.0, 0.0, 0.0, 1.0],    // Front: red
+              [0.0, 1.0, 0.0, 1.0],    // Back: green
+              [0.0, 0.0, 1.0, 1.0],    // Top: blue
+              [1.0, 1.0, 0.0, 1.0],    // Bottom: yellow
+              [1.0, 0.0, 1.0, 1.0],    // Right: magenta
+              [0.0, 1.0, 1.0, 1.0],    // Left: cyan
+            ];
+            let colors = [];
+            for (let j = 0; j < faceColors.length; ++j) {
+              const c = faceColors[j];
+              colors = colors.concat(c, c, c, c);
+            }
+            const colorBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+            // Indices
+            const indices = [
+              0, 1, 2,      0, 2, 3,    // front
+              4, 5, 6,      4, 6, 7,    // back
+              8, 9,10,      8,10,11,    // top
+             12,13,14,     12,14,15,    // bottom
+             16,17,18,     16,18,19,    // right
+             20,21,22,     20,22,23,    // left
+            ];
+            const indexBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+            // Draw scene
+            let cubeRotation = 0;
+            function drawScene() {
+              gl.viewport(0, 0, canvas.width, canvas.height);
+              gl.clearColor(0.98, 0.96, 1, 1.0);
+              gl.clearDepth(1.0);
+              gl.enable(gl.DEPTH_TEST);
+              gl.depthFunc(gl.LEQUAL);
+              gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+              // Perspective matrix
+              const fieldOfView = 45 * Math.PI / 180;
+              const aspect = canvas.width / canvas.height;
+              const zNear = 0.1;
+              const zFar = 100.0;
+              const projectionMatrix = mat4.create();
+              mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
+              // Model view
+              const modelViewMatrix = mat4.create();
+              mat4.translate(modelViewMatrix, modelViewMatrix, [0.0, 0.0, -6.0]);
+              mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 1, 1]);
+              // Positions
+              {
+                const numComponents = 3;
+                const type = gl.FLOAT;
+                const normalize = false;
+                const stride = 0;
+                const offset = 0;
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.vertexAttribPointer(
+                  programInfo.attribLocations.vertexPosition,
+                  numComponents,
+                  type,
+                  normalize,
+                  stride,
+                  offset);
+                gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+              }
+              // Colors
+              {
+                const numComponents = 4;
+                const type = gl.FLOAT;
+                const normalize = false;
+                const stride = 0;
+                const offset = 0;
+                gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+                gl.vertexAttribPointer(
+                  programInfo.attribLocations.vertexColor,
+                  numComponents,
+                  type,
+                  normalize,
+                  stride,
+                  offset);
+                gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
+              }
+              gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+              gl.useProgram(programInfo.program);
+              gl.uniformMatrix4fv(
+                programInfo.uniformLocations.projectionMatrix,
+                false,
+                projectionMatrix);
+              gl.uniformMatrix4fv(
+                programInfo.uniformLocations.modelViewMatrix,
+                false,
+                modelViewMatrix);
+              {
+                const vertexCount = 36;
+                const type = gl.UNSIGNED_SHORT;
+                const offset = 0;
+                gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
+              }
+              cubeRotation += 0.02;
+              if(canvas && params.canvas === 'on') {
+                canvas._animFrame = requestAnimationFrame(drawScene);
+              }
+            }
+            // mat4 utility
+            const mat4 = {
+              create: function() { return new Float32Array(16).fill(0).map((v,i)=>i%5===0?1:0); },
+              perspective: function(out, fovy, aspect, near, far) {
+                const f = 1.0 / Math.tan(fovy / 2), nf = 1 / (near - far);
+                out[0] = f / aspect; out[1] = 0; out[2] = 0; out[3] = 0;
+                out[4] = 0; out[5] = f; out[6] = 0; out[7] = 0;
+                out[8] = 0; out[9] = 0; out[10] = (far + near) * nf; out[11] = -1;
+                out[12] = 0; out[13] = 0; out[14] = (2 * far * near) * nf; out[15] = 0;
+              },
+              translate: function(out, a, v) {
+                out[12] = a[12] + v[0]; out[13] = a[13] + v[1]; out[14] = a[14] + v[2];
+              },
+              rotate: function(out, a, rad, axis) {
+                let x = axis[0], y = axis[1], z = axis[2];
+                let len = Math.hypot(x, y, z);
+                if (len < 0.000001) return null;
+                len = 1 / len; x *= len; y *= len; z *= len;
+                const s = Math.sin(rad), c = Math.cos(rad), t = 1 - c;
+                const a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+                const a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+                const a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+                // Construct the elements of the rotation matrix
+                const b00 = x * x * t + c, b01 = y * x * t + z * s, b02 = z * x * t - y * s;
+                const b10 = x * y * t - z * s, b11 = y * y * t + c, b12 = z * y * t + x * s;
+                const b20 = x * z * t + y * s, b21 = y * z * t - x * s, b22 = z * z * t + c;
+                // Perform rotation-specific matrix multiplication
+                out[0] = a00 * b00 + a10 * b01 + a20 * b02;
+                out[1] = a01 * b00 + a11 * b01 + a21 * b02;
+                out[2] = a02 * b00 + a12 * b01 + a22 * b02;
+                out[3] = a03 * b00 + a13 * b01 + a23 * b02;
+                out[4] = a00 * b10 + a10 * b11 + a20 * b12;
+                out[5] = a01 * b10 + a11 * b11 + a21 * b12;
+                out[6] = a02 * b10 + a12 * b11 + a22 * b12;
+                out[7] = a03 * b10 + a13 * b11 + a23 * b12;
+                out[8] = a00 * b20 + a10 * b21 + a20 * b22;
+                out[9] = a01 * b20 + a11 * b21 + a21 * b22;
+                out[10] = a02 * b20 + a12 * b21 + a22 * b22;
+                out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+                out[12] = a[12]; out[13] = a[13]; out[14] = a[14]; out[15] = a[15];
+              },
+            };
+            drawScene();
+          }
+          webglCube(canvas);
+        }
+      } else {
+        if(sliderImg) sliderImg.style.display = '';
+        if(canvas) {
+          if(canvas._animFrame) cancelAnimationFrame(canvas._animFrame);
+          canvas.remove();
+        }
+      }
       // Reset all effects
-      if(sliderImg) {
+      if(sliderImg && params.canvas !== 'on') {
         sliderImg.style.filter = '';
         sliderImg.style.display = '';
         sliderImg.style.opacity = '';
@@ -1649,7 +1991,7 @@
             <span class="text-xs text-gray-400">You can review and remove access at any time in your ${p.name} account settings.</span>
           </div>
           <div class="flex gap-2 w-full mt-2">
-            <button class="flex-1 rounded-lg px-4 py-2 font-semibold shadow hover:opacity-90 transition" style="background:${p.brand};color:#fff;">Continue as ${user.name.split(' ')[0]}</button>
+            <button id="social-continue" class="flex-1 rounded-lg px-4 py-2 font-semibold shadow hover:opacity-90 transition" style="background:${p.brand};color:#fff;">Continue as ${user.name.split(' ')[0]}</button>
             <button class="flex-1 bg-gray-100 text-gray-700 rounded-lg px-4 py-2 font-semibold shadow hover:bg-gray-200 transition">Cancel</button>
           </div>
         </div>
@@ -1659,8 +2001,33 @@
       if (closeBtn) closeBtn.onclick = function() { popup.remove(); };
       const cancelBtn = popup.querySelector('.bg-gray-100');
       if (cancelBtn) cancelBtn.onclick = function() { popup.remove(); };
-      const brandBtn = popup.querySelector('.' + p.btn.replace(/ /g, '.'));
-      if (brandBtn) brandBtn.onclick = function() { popup.remove(); };
+      // SSO login success: redirect to SPA welcome
+      const continueBtn = popup.querySelector('#social-continue');
+      if (continueBtn) continueBtn.onclick = function() {
+        popup.remove();
+        // Simulate SPA login success
+        const now = new Date();
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const formatted = now.toLocaleString() + ' (' + tz + ')';
+        localStorage.setItem('lastLogin', formatted);
+        const mainCardLeft = document.getElementById('login-left');
+        if (mainCardLeft) {
+          mainCardLeft.innerHTML = `
+            <div class='flex flex-col justify-center items-center h-full w-full p-8'>
+              <div class='text-2xl font-bold text-purple-700 mb-2'>Welcome back, <span class='font-extrabold'>${user.email}</span>!</div>
+              <div class='text-xs text-gray-500 mb-6'>Last login: ${formatted}</div>
+              <button id='logout-btn' class='px-6 py-2 bg-gray-200 text-purple-700 rounded font-semibold shadow hover:bg-gray-300 transition'>Log out</button>
+            </div>
+          `;
+          // Attach logout handler
+          const logoutBtn = mainCardLeft.querySelector('#logout-btn');
+          if (logoutBtn) {
+            logoutBtn.onclick = function() {
+              window.location.reload();
+            };
+          }
+        }
+      };
     }
     // Attach to all social buttons
     document.querySelectorAll('button').forEach(btn => {
@@ -1906,6 +2273,401 @@
     }
 
     const mainCardLeft = document.querySelector('#main-card .flex-1');
+
+    // --- Visual Regression Parameters Panel Logic ---
+    // ... existing code ...
+
+    // Add Skeleton Loader param to Layout section if not present
+    if (!PARAMS.some(p => p.key === 'skeleton')) {
+      PARAMS.push({key:'skeleton', label:'Skeleton Loader', value:'on', type:'checkbox'});
+      // Add to Layout section keys if not present
+      const layoutSection = PARAM_SECTIONS.find(s => s.title === 'Layout');
+      if (layoutSection && !layoutSection.keys.includes('skeleton')) {
+        layoutSection.keys.push('skeleton');
+      }
+    }
+    // ... existing code ...
+
+    function applySkeletonLoader() {
+      const params = getCurrentParams();
+      const skeleton = document.getElementById('skeleton-loader');
+      if (params.skeleton === 'on') {
+        skeleton && (skeleton.style.display = 'block');
+        document.body.style.overflow = 'hidden';
+        // Auto-dismiss after 10 seconds
+        if (!window._skeletonTimeout) {
+          window._skeletonTimeout = setTimeout(() => {
+            // Remove skeleton param from URL
+            const params = new URLSearchParams(window.location.search);
+            params.delete('skeleton');
+            window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+            skeleton.style.display = 'none';
+            document.body.style.overflow = '';
+            window._skeletonTimeout = null;
+          }, 10000);
+        }
+      } else {
+        skeleton && (skeleton.style.display = 'none');
+        document.body.style.overflow = '';
+        if (window._skeletonTimeout) {
+          clearTimeout(window._skeletonTimeout);
+          window._skeletonTimeout = null;
+        }
+      }
+    }
+    // ... existing code ...
+
+    // On load, show skeleton loader if param is set
+    applySkeletonLoader();
+    // ... existing code ...
+
+    // Also call applySkeletonLoader after any param change
+    // Patch paramForm rendering to call applySkeletonLoader after toggling
+    const origRenderParamForm = renderParamForm;
+    renderParamForm = function(activeIdx = 0) {
+      origRenderParamForm(activeIdx);
+      // Attach skeleton loader toggle logic
+      const skeletonInput = document.querySelector('input[name="skeleton"]');
+      if (skeletonInput) {
+        skeletonInput.onchange = function() {
+          const params = new URLSearchParams(window.location.search);
+          if (skeletonInput.checked) params.set('skeleton', 'on');
+          else params.delete('skeleton');
+          window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+          applySkeletonLoader();
+          renderParamForm(activeParamTab);
+        };
+      }
+    };
+    // Initial patch call
+    renderParamForm(activeParamTab);
+    // ... existing code ...
+
+    // Also call applySkeletonLoader on popstate (URL param change)
+    window.addEventListener('popstate', applySkeletonLoader);
+    // ... existing code ...
+
+    // Add SVG icons param to Image section if not present
+    if (!PARAMS.some(p => p.key === 'svgicons')) {
+      PARAMS.push({key:'svgicons', label:'Use SVG icons', value:'on', type:'checkbox'});
+      // Add to Image section keys if not present
+      const imageSection = PARAM_SECTIONS.find(s => s.title === 'Image');
+      if (imageSection && !imageSection.keys.includes('svgicons')) {
+        imageSection.keys.push('svgicons');
+      }
+    }
+
+    // --- SVG ICONS ---
+    // SVG icon definitions
+    const SVG_ICONS = {
+      info: `<svg width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><path d=\"M22.7 19.3l-2.4-2.4c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.3-2.2-6.4-1.1l-2.4-2.4c-.4-.4-1-.4-1.4 0l-2.1 2.1c-.4.4-.4 1 0 1.4l2.4 2.4c-1.1 2.1-.7 4.7 1.1 6.4 1.8 1.8 4.3 2.2 6.4 1.1l2.4 2.4c.4.4 1 .4 1.4 0l2.1-2.1c.4-.4.4-1 0-1.4zM7.7 7.7l2.4 2.4c-1.1 2.1-.7 4.7 1.1 6.4 1.8 1.8 4.3 2.2 6.4 1.1l2.4 2.4c.4.4 1 .4 1.4 0l2.1-2.1c.4-.4.4-1 0-1.4l-2.4-2.4c1.1-2.1.7-4.7-1.1-6.4-1.8-1.8-4.3-2.2-6.4-1.1l-2.4-2.4c-.4-.4-1-.4-1.4 0l-2.1 2.1c-.4.4-.4 1 0 1.4z\"/></svg>`,
+      globe: `<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="4" ry="10"/></svg>`,
+      cog: `<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+      eye: `<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/></svg>`,
+      eyeSlash: `<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/><line x1="3" y1="21" x2="21" y2="3"/></svg>`,
+      google: `<svg width="20" height="20" viewBox="0 0 48 48"><g><path fill="#4285F4" d="M43.6 20.5H42V20H24v8h11.3C34.7 32.1 29.8 35 24 35c-6.1 0-11.3-4.1-13.1-9.6-1.8-5.5.2-11.5 5.1-14.7 4.9-3.2 11.5-2.7 15.8 1.2l6.4-6.4C34.1 1.7 29.2 0 24 0 10.7 0 0 10.7 0 24s10.7 24 24 24c12.3 0 22.4-9.3 23.9-21.2.1-.7.1-1.3.1-2 0-1.3-.1-2.6-.4-3.8z"/><path fill="#34A853" d="M6.3 14.6l6.6 4.8C14.5 16.1 19 13 24 13c3.1 0 6 .9 8.3 2.6l6.2-6.2C34.1 5.7 29.2 4 24 4c-7.2 0-13.6 3.7-17.2 9.6z"/><path fill="#FBBC05" d="M24 44c5.8 0 10.7-1.9 14.7-5.1l-6.8-5.6C29.9 34.7 27 35.5 24 35.5c-5.8 0-10.7-3.9-12.5-9.4l-6.7 5.2C6.4 40.3 14.5 44 24 44z"/><path fill="#EA4335" d="M43.6 20.5H42V20H24v8h11.3c-1.2 3.2-4.2 5.5-7.3 6.5l6.8 5.6C39.7 41.1 44 34.7 44 24c0-1.3-.1-2.6-.4-3.8z"/></g></svg>`,
+      facebook: `<svg width="20" height="20" viewBox="0 0 32 32"><path fill="#1877F3" d="M32 16.1C32 7.2 24.8 0 16 0S0 7.2 0 16.1c0 8 6 14.6 13.8 15.8v-11.2h-4.2v-4.6h4.2v-3.5c0-4.1 2.5-6.4 6.2-6.4 1.8 0 3.7.3 3.7.3v4.1h-2.1c-2.1 0-2.7 1.3-2.7 2.6v3h4.6l-.7 4.6h-3.9v11.2C26 30.7 32 24.1 32 16.1z"/></svg>`,
+      apple: `<svg width="20" height="20" viewBox="0 0 24 24"><path fill="#000" d="M16.365 1.43c0 1.14-.93 2.07-2.07 2.07-.02 0-.04 0-.06-.01-.02-.01-.03-.01-.05-.01-.02 0-.04 0-.06.01-.02.01-.04.01-.06.01-1.14 0-2.07-.93-2.07-2.07 0-1.14.93-2.07 2.07-2.07.02 0 .04 0 .06.01.02.01.03.01.05.01.02 0 .04 0 .06-.01.02-.01.04-.01.06-.01 1.14 0 2.07.93 2.07 2.07z"/><path fill="#000" d="M21.6 16.2c-.2.5-.4 1-.7 1.5-.3.5-.7 1-1.1 1.4-.4.4-.9.8-1.4 1.1-.5.3-1 .5-1.5.7-.5.2-1.1.3-1.7.3-.6 0-1.2-.1-1.7-.3-.5-.2-1-.4-1.5-.7-.5-.3-1-.7-1.4-1.1-.4-.4-.8-.9-1.1-1.4-.3-.5-.5-1-.7-1.5-.2-.5-.3-1.1-.3-1.7 0-.6.1-1.2.3-1.7.2-.5.4-1 .7-1.5.3-.5.7-1 1.1-1.4.4-.4.9-.8 1.4-1.1.5-.3 1-.5 1.5-.7.5-.2 1.1-.3 1.7-.3.6 0 1.2.1 1.7.3.5.2 1 .4 1.5.7.5.3 1 .7 1.4 1.1.4.4.8.9 1.1 1.4.3.5.5 1 .7 1.5.2.5.3 1.1.3 1.7 0 .6-.1 1.2-.3 1.7z"/></svg>`
+      // Add more SVGs as needed for other icons (linkedin, microsoft, twitter, etc.)
+    };
+
+    function swapIconsToSVG() {
+      // Header icons
+      const infoBtn = document.querySelector('#open-side-panel-btn i');
+      if (infoBtn && infoBtn.parentElement) infoBtn.parentElement.innerHTML = SVG_ICONS.info;
+      const globeBtn = document.querySelector('#lang-icon i');
+      if (globeBtn && globeBtn.parentElement) globeBtn.parentElement.innerHTML = SVG_ICONS.globe;
+      const cogBtn = document.querySelector('#help-icon i');
+      if (cogBtn && cogBtn.parentElement) cogBtn.parentElement.innerHTML = SVG_ICONS.cog;
+      // Password eye icon
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (eyeIcon && eyeIcon.parentElement) {
+        if (eyeIcon.classList.contains('fa-eye-slash')) {
+          eyeIcon.parentElement.innerHTML = SVG_ICONS.eyeSlash;
+        } else {
+          eyeIcon.parentElement.innerHTML = SVG_ICONS.eye;
+        }
+      }
+      // Social buttons
+      document.querySelectorAll('.fab.fa-google').forEach(el => el.outerHTML = SVG_ICONS.google);
+      document.querySelectorAll('.fab.fa-facebook-f').forEach(el => el.outerHTML = SVG_ICONS.facebook);
+      document.querySelectorAll('.fab.fa-apple').forEach(el => el.outerHTML = SVG_ICONS.apple);
+      // Add more as needed
+    }
+    function swapIconsToFA() {
+      // Header icons
+      const infoBtn = document.getElementById('open-side-panel-btn');
+      if (infoBtn) infoBtn.innerHTML = '<i class="fa-solid fa-wrench"></i>';
+      const globeBtn = document.getElementById('lang-icon');
+      if (globeBtn) globeBtn.innerHTML = '<i class="fa-solid fa-globe"></i>';
+      const cogBtn = document.getElementById('help-icon');
+      if (cogBtn) cogBtn.innerHTML = '<i class="fa-solid fa-cog"></i>';
+      // Password eye icon
+      const eyeSpan = document.querySelector('#password + span');
+      if (eyeSpan) eyeSpan.innerHTML = '<i class="fa-regular fa-eye" id="eyeIcon"></i>';
+      // Social buttons
+      document.querySelectorAll('.grid.grid-cols-3 button').forEach(btn => {
+        if (btn.innerHTML.includes('Google')) btn.innerHTML = '<i class="fab fa-google"></i> Google';
+        if (btn.innerHTML.includes('Facebook')) btn.innerHTML = '<i class="fab fa-facebook-f"></i> Facebook';
+        if (btn.innerHTML.includes('Apple')) btn.innerHTML = '<i class="fab fa-apple"></i> Apple';
+      });
+      // Add more as needed
+    }
+    function applySVGIcons() {
+      const params = getCurrentParams();
+      if (params.svgicons === 'on') {
+        swapIconsToSVG();
+      } else {
+        swapIconsToFA();
+      }
+    }
+    // On load
+    applySVGIcons();
+    // Patch paramForm rendering to call applySVGIcons after toggling
+    const origRenderParamFormSVG = renderParamForm;
+    renderParamForm = function(activeIdx = 0) {
+      origRenderParamFormSVG(activeIdx);
+      // Attach svgicons toggle logic
+      const svgInput = document.querySelector('input[name="svgicons"]');
+      if (svgInput) {
+        svgInput.onchange = function() {
+          const params = new URLSearchParams(window.location.search);
+          if (svgInput.checked) params.set('svgicons', 'on');
+          else params.delete('svgicons');
+          window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+          applySVGIcons();
+          renderParamForm(activeParamTab);
+        };
+      }
+    };
+    // Initial patch call
+    renderParamForm(activeParamTab);
+    // Also call applySVGIcons on popstate (URL param change)
+    window.addEventListener('popstate', applySVGIcons);
+
+    // --- Badge/Counter on Settings Icon ---
+    function updateSettingsBadge() {
+      // Only attach badge to the settings (cog) icon, never to the info button
+      const params = getCurrentParams();
+      let count = 0;
+      PARAMS.forEach(param => {
+        if (param.type === 'checkbox' && params[param.key] === param.value) count++;
+      });
+      let badge = document.getElementById('settings-badge');
+      const cogBtn = document.getElementById('help-icon');
+      // Remove old badge if present
+      if (badge) badge.remove();
+      if (count > 0 && cogBtn) {
+        badge = document.createElement('span');
+        badge.id = 'settings-badge';
+        badge.textContent = count;
+        badge.style.position = 'absolute';
+        badge.style.top = '2px';
+        badge.style.right = '2px';
+        badge.style.background = '#e11d48';
+        badge.style.color = '#fff';
+        badge.style.fontSize = '0.75rem';
+        badge.style.fontWeight = 'bold';
+        badge.style.borderRadius = '9999px';
+        badge.style.padding = '0 6px';
+        badge.style.height = '18px';
+        badge.style.minWidth = '18px';
+        badge.style.display = 'flex';
+        badge.style.alignItems = 'center';
+        badge.style.justifyContent = 'center';
+        badge.style.zIndex = '10';
+        badge.style.boxShadow = '0 1px 4px rgba(0,0,0,0.12)';
+        // Position relative to icon
+        cogBtn.style.position = 'relative';
+        cogBtn.appendChild(badge);
+      }
+    }
+    // Update badge on param panel open, tab switch, and checkbox toggle
+    function patchBadgeEvents() {
+      // On tab switch
+      paramTabs.addEventListener('click', function(e) {
+        setTimeout(updateSettingsBadge, 10);
+      });
+      // On checkbox toggle
+      paramForm.addEventListener('change', function(e) {
+        if (e.target && e.target.type === 'checkbox') updateSettingsBadge();
+      });
+      // On panel open
+      const cogBtn = document.getElementById('help-icon');
+      if (cogBtn) cogBtn.addEventListener('click', function() {
+        setTimeout(updateSettingsBadge, 100);
+      });
+    }
+    patchBadgeEvents();
+    // Also update badge after rendering param form
+    const origRenderParamFormBadge = renderParamForm;
+    renderParamForm = function(activeIdx = 0) {
+      origRenderParamFormBadge(activeIdx);
+      updateSettingsBadge();
+      // ...existing SVG/param logic...
+      const svgInput = document.querySelector('input[name="svgicons"]');
+      if (svgInput) {
+        svgInput.onchange = function() {
+          const params = new URLSearchParams(window.location.search);
+          if (svgInput.checked) params.set('svgicons', 'on');
+          else params.delete('svgicons');
+          window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+          applySVGIcons();
+          renderParamForm(activeParamTab);
+        };
+      }
+    };
+    // Initial badge update
+    updateSettingsBadge();
+
+    // --- Ensure checkboxes reflect URL params on load and param change ---
+    function syncCheckboxesWithParams() {
+      const params = getCurrentParams();
+      PARAMS.forEach(p => {
+        if (p.type === 'checkbox') {
+          const input = document.querySelector(`input[name='${p.key}']`);
+          if (input) input.checked = params[p.key] === p.value;
+        }
+      });
+    }
+    // Patch paramForm rendering to sync checkboxes and update badge
+    const origRenderParamFormSync = renderParamForm;
+    renderParamForm = function(activeIdx = 0) {
+      origRenderParamFormSync(activeIdx);
+      syncCheckboxesWithParams();
+      updateSettingsBadge();
+      // ...existing SVG/param logic...
+      const svgInput = document.querySelector('input[name="svgicons"]');
+      if (svgInput) {
+        svgInput.onchange = function() {
+          const params = new URLSearchParams(window.location.search);
+          if (svgInput.checked) params.set('svgicons', 'on');
+          else params.delete('svgicons');
+          window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+          applySVGIcons();
+          renderParamForm(activeParamTab);
+        };
+      }
+    };
+    // On load, sync checkboxes and update badge
+    syncCheckboxesWithParams();
+    updateSettingsBadge();
+    // Also update badge and checkboxes on popstate (URL param change)
+    window.addEventListener('popstate', function() {
+      syncCheckboxesWithParams();
+      updateSettingsBadge();
+    });
+
+    // --- Sun/Moon Dark Mode Toggle ---
+    const sunSVG = `<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+    const moonSVG = `<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>`;
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    function setThemeIcon(isDark) {
+      if (themeToggleBtn) themeToggleBtn.innerHTML = isDark ? moonSVG : sunSVG;
+    }
+    function setDarkMode(isDark) {
+      document.body.classList.toggle('dark', isDark);
+      setThemeIcon(isDark);
+    }
+    function updateThemeParam(isDark) {
+      const params = new URLSearchParams(window.location.search);
+      if (isDark) params.set('theme', 'on');
+      else params.delete('theme');
+      window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+    }
+    if (themeToggleBtn) {
+      themeToggleBtn.onclick = function() {
+        const isDark = !document.body.classList.contains('dark');
+        setDarkMode(isDark);
+        updateThemeParam(isDark);
+      };
+    }
+    // On page load, set mode and icon from URL param
+    const urlParamsTheme = new URLSearchParams(window.location.search);
+    const darkFromUrl = urlParamsTheme.get('theme') === 'on';
+    setDarkMode(darkFromUrl);
+
+    // --- About Us Infinite Scroll Modal ---
+    const aboutBtn = document.getElementById('about-btn');
+    const aboutOverlay = document.getElementById('about-overlay');
+    const aboutClose = document.getElementById('about-close');
+    const aboutContent = document.getElementById('about-content');
+    const aboutLoading = document.getElementById('about-loading');
+    let aboutLineCount = 0;
+    let aboutLoadingMore = false;
+    function loadAboutLines(count = 30) {
+      aboutLoadingMore = true;
+      aboutLoading && (aboutLoading.style.display = 'block');
+      setTimeout(() => {
+        for (let i = 0; i < count; i++) {
+          aboutLineCount++;
+          // Add a line with extra padding and line height
+          const line = document.createElement('div');
+          line.className = 'w-full text-left py-4 border-b border-purple-100 text-base';
+          line.style.lineHeight = '2.1';
+          line.style.paddingLeft = '0.5rem';
+          line.textContent = `About Us Line #${aboutLineCount}`;
+          aboutContent.appendChild(line);
+          // After every 10 lines, add an accordion
+          if (aboutLineCount % 10 === 0) {
+            const accordion = document.createElement('div');
+            accordion.className = 'w-full my-2 rounded-lg border border-purple-200 bg-purple-50 shadow-sm';
+            accordion.innerHTML = `
+              <button class="accordion-toggle w-full flex justify-between items-center px-4 py-3 font-semibold text-purple-700 focus:outline-none">
+                <span>What is Visual Testing?</span>
+                <span class="accordion-arrow">&#9660;</span>
+              </button>
+              <div class="accordion-content px-4 pb-4 text-gray-700 text-sm hidden">
+                Visual testing is the process of verifying that the user interface of an application appears correctly to users. It helps catch visual bugs, layout issues, and unintended UI changes by comparing screenshots or DOM snapshots across versions or environments. Automated visual regression tools make this process efficient and reliable.
+              </div>
+            `;
+            aboutContent.appendChild(accordion);
+          }
+        }
+        // Accordion toggle logic
+        aboutContent.querySelectorAll('.accordion-toggle').forEach(btn => {
+          btn.onclick = function() {
+            const content = btn.nextElementSibling;
+            const arrow = btn.querySelector('.accordion-arrow');
+            if (content.classList.contains('hidden')) {
+              content.classList.remove('hidden');
+              arrow.innerHTML = '&#9650;';
+            } else {
+              content.classList.add('hidden');
+              arrow.innerHTML = '&#9660;';
+            }
+          };
+        });
+        aboutLoading && (aboutLoading.style.display = 'none');
+        aboutLoadingMore = false;
+      }, 400); // Simulate async/lazy load
+    }
+    function showAboutOverlay() {
+      aboutOverlay.classList.remove('hidden');
+      aboutContent.innerHTML = '';
+      aboutLineCount = 0;
+      loadAboutLines();
+      // Hide settings badge if present
+      const badge = document.getElementById('settings-badge');
+      if (badge) badge.style.display = 'none';
+    }
+    function hideAboutOverlay() {
+      aboutOverlay.classList.add('hidden');
+      // Show settings badge again if present
+      const badge = document.getElementById('settings-badge');
+      if (badge) badge.style.display = '';
+    }
+    if (aboutBtn) aboutBtn.onclick = showAboutOverlay;
+    if (aboutClose) aboutClose.onclick = hideAboutOverlay;
+    // Infinite scroll logic
+    if (aboutOverlay) {
+      aboutOverlay.onscroll = function() {
+        if (aboutLoadingMore) return;
+        if (aboutOverlay.scrollTop + aboutOverlay.clientHeight >= aboutOverlay.scrollHeight - 120) {
+          loadAboutLines();
+        }
+      };
+    }
   });
 })();
   </script>
