@@ -46,6 +46,14 @@ A playground for visual regression testing—simulate UI states, edge cases, and
 
 ---
 
+## 🌐 Online Demo
+
+No setup, view live on GitHub Pages:
+
+[https://vijopv83.github.io/VisualRegressionTester/](https://vijopv83.github.io/VisualRegressionTester/)
+
+---
+
 ## 🎛️ Visual Regression Parameters
 
 Open the panel (cog icon in header) to toggle features for robust visual testing. All options update the UI and URL in sync.
