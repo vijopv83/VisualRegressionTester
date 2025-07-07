@@ -10,7 +10,7 @@ A playground for visual regression testing—simulate UI states, edge cases, and
   Seamless login/logout flow with instant panel updates—no reloads.
 
 - **About Us Overlay:**  
-  Modern, responsive card with a feature table and a visually rich comparison of popular visual regression tools (Applitools, Percy, BackstopJS, etc.). Fully themed for light and dark mode. No infinite scroll—content is curated and always readable.
+  Modern, responsive card with a feature table and a visually rich comparison of popular visual regression tools (Applitools, Percy, BackstopJS, etc.). Scroll—content is curated and always readable.
 
 - **Visual Regression Parameters Panel:**  
   All parameters are grouped in a right-side accordion panel. Toggle UI states (typography, layout, effects, form, image, Canvas/WebGL, etc.) with instant UI and URL sync for reproducibility.
