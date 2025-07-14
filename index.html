@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Website to evaluate Visual Regression Tools</title>
   <link rel="stylesheet" href="public/output.css">
+  
   <link rel="icon" href="favicon.ico">
   <link
     href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Fira+Mono:400,500,700|Merriweather:400,700|Roboto:400,500,700&display=swap"
@@ -321,6 +322,14 @@
     #countdown-timer {
       white-space: nowrap;
     }
+
+    .p-2{
+      padding: 0.5rem;
+    }
+
+    .mb-12{
+      margin-bottom: 3rem;
+    }
   </style>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap">
 </head>
@@ -540,7 +549,7 @@
   </div>
   <!-- System Info Side Panel -->
   <div id="side-panel"
-    class="fixed top-0 left-[-400px] w-[340px] h-full bg-white shadow-lg z-50 transition-right flex flex-col rounded-r-2xl">
+    class="fixed top-0 left-[-400px] w-[340px] h-full bg-white shadow-lg z-[3000] transition-right flex flex-col rounded-r-2xl">
     <button id="side-panel-close" class="absolute top-3 left-4 text-2xl text-purple-500">&times;</button>
     <div class="p-0 pt-10 overflow-y-auto flex-1">
       <div class="font-bold text-lg mb-2 px-6">System Info</div>
@@ -551,7 +560,7 @@
   </div>
   <!-- Visual Regression Parameters Right Panel -->
   <div id="help-panel"
-    class="fixed top-0 right-[-400px] w-[400px] h-full bg-white shadow-lg z-50 transition-right flex flex-col rounded-l-2xl">
+    class="fixed top-0 right-[-400px] w-[400px] h-full bg-white shadow-lg z-[3000] transition-right flex flex-col rounded-l-2xl">
     <button id="help-close" class="absolute top-3 right-4 text-2xl text-purple-500">&times;</button>
     <div class="p-0 pt-10 overflow-y-auto flex-1">
       <div class="flex items-center justify-between mb-2 px-6">
@@ -616,7 +625,7 @@
   <div id="panel-overlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden transition-opacity duration-300">
   </div>
   <footer
-    class="fixed bottom-0 left-0 w-full text-white text-center py-3 px-4 font-semibold text-base shadow-xl z-[3000] flex justify-between items-center flex-wrap bg-purple-400 dark:bg-gray-900 dark:text-gray-200">
+    class="fixed bottom-0 left-0 w-full text-white text-center py-3 px-4 font-semibold text-base shadow-xl z-[2000] flex justify-between items-center flex-wrap bg-purple-400 dark:bg-gray-900 dark:text-gray-200">
     <span class="footer-left">
       <a href="https://github.com/vijopv83/VisualRegressionTester" target="_blank"
         class="underline text-white font-bold">
@@ -675,7 +684,7 @@
     <h2 class="text-2xl md:text-3xl font-extrabold text-purple-700 mt-8 md:mt-12 mb-4 text-center px-2">About Us</h2>
     <div class="w-full max-w-2xl flex flex-col items-center px-2 sm:px-4 pb-8 m-2 sm:m-4 md:m-8">
       <div
-        class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-3 sm:p-5 shadow-lg border border-purple-100 dark:shadow-2xl backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl mb-8 w-full"
+        class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl px-4 py-4 shadow-lg border border-purple-100 dark:shadow-2xl backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl mb-8 w-full"
         style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
         <p class="text-base sm:text-lg text-gray-700 mb-4">Visual Regression Tester is a modern playground for
           evaluating and comparing visual regression tools. It's designed to help you catch UI changes, layout bugs, and
@@ -776,14 +785,14 @@
           <div class="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
             <!-- Applitools Eyes -->
             <div
-              class="relative bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-2xl p-7 shadow-xl border border-purple-200 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full dark:text-gray-100"
+              class="relative bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-2xl p-2 mb-2 shadow-xl border border-purple-200 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full dark:text-gray-100"
               style="box-shadow: 0 8px 36px 0 rgba(124,58,237,0.13);">
-              <div class="flex items-center mb-4 mt-1 ml-1 dark:text-purple-200">
-                <span class="text-3xl mr-4 flex-shrink-0">🧠</span>
+              <div class="flex items-center mb-1 mt-1 ml-1 dark:text-purple-200">
+                <span class="text-3xl mr-2 flex-shrink-0">🧠</span>
                 <span class="font-bold text-xl sm:text-2xl text-purple-800 dark:text-purple-300 drop-shadow">Applitools
                   Eyes</span>
               </div>
-              <div class="text-xs text-gray-500 dark:text-gray-300 mb-3 ml-1">AI-powered visual testing (Visual AI)
+              <div class="text-xs text-gray-500 dark:text-gray-300 mb-1 ml-1">AI-powered visual testing (Visual AI)
               </div>
               <ul class="text-sm text-gray-700 dark:text-gray-200 mb-1 ml-1" style="line-height:1.8; font-weight: 400;">
                 <li><b>Best For:</b> Dynamic UI, cross-browser, responsive testing, CI/CD pipelines</li>
@@ -799,7 +808,7 @@
             </div>
             <!-- Percy -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">☁️</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">SmartUI (by
@@ -820,7 +829,7 @@
               </ul>
             </div>
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">📸</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">Percy (by BrowserStack)</span></div>
@@ -839,7 +848,7 @@
             </div>
             <!-- BackstopJS -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🟦</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">BackstopJS</span></div>
@@ -859,7 +868,7 @@
             </div>
             <!-- Katalon Studio -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🧪</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">Katalon Studio (Visual Testing)</span></div>
@@ -877,7 +886,7 @@
             </div>
             <!-- Kobiton -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🟡</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">Kobiton</span></div>
@@ -896,7 +905,7 @@
             </div>
             <!-- Chromatic -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🧩</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">Chromatic (for Storybook)</span></div>
@@ -915,7 +924,7 @@
             </div>
             <!-- PhantomCSS -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🎯</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">PhantomCSS</span></div>
@@ -933,7 +942,7 @@
             </div>
             <!-- Galen Framework -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">⚙️</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">Galen Framework</span></div>
@@ -952,7 +961,7 @@
             </div>
             <!-- AyeSpy -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-2 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🖼</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">AyeSpy</span></div>
@@ -969,7 +978,7 @@
             </div>
             <!-- SikuliX -->
             <div
-              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-5 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
+              class="bg-white dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 rounded-xl p-2 mb-12 shadow-lg border border-purple-100 dark:border-gray-600 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-2xl hover:border-purple-400 dark:hover:border-purple-500 w-full"
               style="box-shadow: 0 4px 24px 0 rgba(75,31,166,0.10);">
               <div class="flex items-center mb-1 dark:text-purple-200"><span class="text-2xl mr-2">🧿</span><span
                   class="font-bold text-purple-800 dark:text-purple-300">SikuliX</span></div>
